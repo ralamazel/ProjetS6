@@ -9,5 +9,5 @@ public class Stock {
 	//	this.stock[0]= new QuantitePlaqueAlu()
 	}
 	
-//	Jeramy t'es vreaimenr trop fouetter ta grand mere la chauve
+//	Maxime a les couilles bleues il lui tarde de se les faire vider
 }
