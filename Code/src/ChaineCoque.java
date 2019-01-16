@@ -8,7 +8,7 @@ public class ChaineCoque extends Chaine{
 		input[1]= new QuantitePlaqueAlu(1);
 		this.output= new QuantiteElement[1];
 
-		output[0]= new QuantiteCoque(1);
+		output[0]= new QuantiteCoque(10);
 	}
 	
 	
