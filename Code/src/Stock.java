@@ -9,5 +9,5 @@ public class Stock {
 	//	this.stock[0]= new QuantitePlaqueAlu()
 	}
 	
-//	Maxime a les couilles bleues  il lui tarde de se les faire vider
+//	Maxime a les couille  s bleues  il lui tarde de se les faire vider
 }
