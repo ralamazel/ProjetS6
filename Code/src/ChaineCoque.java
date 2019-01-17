@@ -1,4 +1,4 @@
-
+//Chaine coque
 public class ChaineCoque extends Chaine{
 
 	public ChaineCoque() {
