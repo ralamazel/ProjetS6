@@ -1,7 +1,7 @@
 
-public class QuantitePropulsion {
+public class QuantitePropulsion extends QuantiteElement{
 	
-		public QuantitePropulsion(int quantite) {
+		public QuantitePropulsion(double quantite) {
 			super(new Propulsion(),quantite);
 		}
 	}

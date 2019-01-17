@@ -1,6 +1,6 @@
 
 public class QuantitePlastique extends QuantiteElement{
-	public QuantitePlastique(int quantite) {
+	public QuantitePlastique(double quantite) {
 		super(new Plastique(),quantite);
 		
 	}

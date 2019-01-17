@@ -1,7 +1,7 @@
 
 public class QuantiteServomoteur extends QuantiteElement{
 	
-	public QuantiteServomoteur(int quantite) {
+	public QuantiteServomoteur(double quantite) {
 		super(new Servomoteur(),quantite);
 	}
 }
