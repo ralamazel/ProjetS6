@@ -6,7 +6,7 @@ public abstract class Chaine {
 	
 	
 	//abstract void fabriquer() {
-		
+	//}
 	}
 
 

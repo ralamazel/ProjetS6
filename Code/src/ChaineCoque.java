@@ -12,7 +12,8 @@ public class ChaineCoque extends Chaine{
 	}
 	
 	
-	public void fabriquer() {
+	public void fabriquer(int niveau) {
+		//return output[0];
 		
 	}
 }

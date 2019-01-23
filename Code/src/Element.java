@@ -1,5 +1,5 @@
 
-public class Element {
+public abstract class Element {
 	private String code;
 	private String nom;
 	private String unite;
