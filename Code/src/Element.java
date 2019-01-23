@@ -13,6 +13,7 @@ public class Element {
 		this.prixAchat=prixAchat;
 		this.prixAchat=prixVente;
 	}
+	// c'est moi samir
 	
 	
 	
