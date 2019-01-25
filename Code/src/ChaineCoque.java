@@ -12,6 +12,12 @@ public class ChaineCoque extends Chaine{
 
 		output[0]= new QuantiteCoque(10*n);
 		
+		//int newQuantite=(int)hmap.put(2,"BB");
+	       
+	    //System.out.println("Valeur remplacée : "+val_ret);
+	       
+	    //System.out.println("Hashtable après modification : "+ht); 
+		
 	}
 	
 	

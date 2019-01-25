@@ -1,5 +1,5 @@
 
-public abstract class Element {
+public  class Element {
 	private String code;
 	private String nom;
 	private String unite;
@@ -14,7 +14,9 @@ public abstract class Element {
 		this.prixAchat=prixVente;
 	}
 	// c'est moi samirvf
-	
+	 public String getNom() {
+		 return this.nom;
+	 }
 	
 	
 

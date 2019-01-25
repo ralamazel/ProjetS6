@@ -15,9 +15,7 @@ public class Stock {
 		int prixVente,prixAchat;
 		
 		Scanner s = new Scanner(file);
-		
 		s.nextLine();
-		
 		
 		String data = "";
 		while(s.hasNext()) {
@@ -25,26 +23,64 @@ public class Stock {
 			data = s.nextLine();
 			String[] values = data.split(";");
 			if(!values[4].equals("NA")) {
-				 prixAchat=Integer.valueOf(values[4]);
-			}else {
+				 prixAchat=Integer.valueOf(values[4]); 
+			}
+			else {
 				prixAchat=-1;
 			}
-			Element e = new Element(values[0],values[1],values[3],prixAchat,Integer.valueOf(values[5])) {
-			};
+			
+			if(!values[5].equals("NA")) {
+				prixVente = Integer.valueOf(values[5]);
+			}
+			else {
+				prixVente=-1;
+			}
+
+			Element e = new Element(values[0],values[1],values[3],prixAchat,prixVente) ;
+			
 			hmap.put(e, Integer.valueOf(values[2]));
 		}
-		s.close();	
-	      }
+		s.close();
+		
+	}	
+	      
 		
 
 	
 	public void afficherStock() {
-		Set set = hmap.entrySet();
-		Iterator iterator = set.iterator();
-		while(iterator.hasNext()) {
-		Map.Entry mentry = (Map.Entry)iterator.next();
-        System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
-        System.out.println(mentry.getValue());
+		Set set = hmap.keySet();
+		Iterator it = set.iterator();
+		
+		
+		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			System.out.println ("Nom : "+test.getNom()+" | Quantité : "+entry.getValue());
 		}
 	}
+	
+	public int getQuantite(String nom) {
+		Set set = hmap.keySet();
+		Iterator it = set.iterator();
+		
+		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			if (test.getNom().equals(nom)){
+				return(entry.getValue());
+			}
+		}
+		return 1;
+	}
+	
+	public void ModifierStock(Element e, int quantite) {
+		 //=(int)ht.put(2,"BB");
+	       
+	    //System.out.println("Valeur remplacée : "+val_ret);
+	       
+	    //System.out.println("Hashtable après modification : "+ht); 
+	}
+	
+	
+	
 	}
