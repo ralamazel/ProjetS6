@@ -1,8 +1,9 @@
+import java.io.FileNotFoundException;
 
 public class ChainePropulsion extends Chaine{
 	
 
-		public ChainePropulsion() {
+		public ChainePropulsion() throws FileNotFoundException{
 			this.input= new QuantiteElement[3];
 			
 			input[0]= new QuantiteServomoteur(1);

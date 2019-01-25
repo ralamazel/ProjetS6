@@ -1,7 +1,8 @@
+import java.io.FileNotFoundException;
 
 public class ChaineDrone extends Chaine{
 	
-	public ChaineDrone() {
+	public ChaineDrone() throws FileNotFoundException{
 		this.input= new QuantiteElement[3];
 		
 		input[0]= new QuantitePropulsion(24);
