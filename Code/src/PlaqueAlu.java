@@ -1,7 +1,7 @@
 
 public class PlaqueAlu extends Element{
 	public PlaqueAlu() {
-		super("E003", "plaque aluminium", "pieces", 20, 10);
+		super("E003", "Plaques aluminium", "pieces", 20, 10);
 	}
 
 }

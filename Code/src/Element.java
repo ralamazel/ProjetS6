@@ -11,11 +11,23 @@ public  class Element {
 		this.nom=nom;
 		this.unite=unite;
 		this.prixAchat=prixAchat;
-		this.prixAchat=prixVente;
+		this.prixVente=prixVente;
 	}
-	// c'est moi samirvf
+
 	 public String getNom() {
 		 return this.nom;
+	 }
+	 
+	 public int getPrixAchat() {
+		 return this.prixAchat;
+	 }
+	 
+	 public int getPrixVente() {
+		 return this.prixVente;
+	 }
+	 
+	 public String getUnite() {
+		 return this.unite;
 	 }
 	
 	

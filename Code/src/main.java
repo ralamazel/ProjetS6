@@ -6,9 +6,17 @@ public class main {
 			Stock s=new Stock();
 			s.afficherStock();
 			
-			ChaineCoque c= new ChaineCoque(1);
-			Element e=new Plastique();
+			new ChaineCoque(1);
+			
 			System.out.println(s.getQuantite("Plastique"));
+			
+			s.ChaineCoque(285);
+			
+			s.afficherStock();
+			s.Examiner();
+			s.efficacite();
+		
+			
 			
 			
 			

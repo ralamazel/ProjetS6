@@ -1,6 +1,6 @@
 import java.io.FileNotFoundException;
 
-public abstract class QuantiteElement extends Stock {
+public abstract class QuantiteElement {
 	private Element e;
 	private double quantite;
 	public QuantiteElement(Element e, double quantite) throws FileNotFoundException {
