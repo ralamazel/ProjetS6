@@ -1,9 +1,7 @@
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.*;
 import java.io.*;
 
 public class Stock {
@@ -51,7 +49,6 @@ public class Stock {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
-		
 		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
@@ -61,8 +58,8 @@ public class Stock {
 	}
 	
 	public int getQuantite(String nom) {
-		Set set = hmap.keySet();
-		Iterator it = set.iterator();
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
 		
 		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
 		{
@@ -74,14 +71,14 @@ public class Stock {
 		return 1;
 	}
 	
-	public void AjoutStock(Element e, int quantite) {
-		Set set = hmap.keySet();
-		Iterator it = set.iterator();
+	public void AjoutStock(String nom, int quantite) {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
 		
 		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
-			if (test.getNom().equals(e.getNom())) {
+			if (test.getNom().equals(nom)) {
 				entry.setValue(entry.getValue() + quantite);
 			}
 			
@@ -89,14 +86,14 @@ public class Stock {
 
 	}
 	
-	public void EnleveStock(Element e, int quantite) {
-		Set set = hmap.keySet();
-		Iterator it = set.iterator();
+	public void EnleveStock(String nom, int quantite) {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
 		
 		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
-			if (test.getNom().equals(e.getNom())) {
+			if (test.getNom().equals(nom)) {
 				entry.setValue(entry.getValue() - quantite);
 			}
 			
@@ -105,21 +102,21 @@ public class Stock {
 	}
 	
 	public void ChaineCoque(int n) {
-		this.EnleveStock(new Plastique(), 5*n);
-		this.EnleveStock(new PlaqueAlu(), 1*n);
-		this.AjoutStock(new Coque(), 10*n);
+		this.EnleveStock("Plastique", 5*n);
+		this.EnleveStock("Plaques aluminium", 1*n);
+		this.AjoutStock("Coques", 10*n);
 	}
 	
 	public void ChaineDrone(int n) {
-		this.EnleveStock(new Coque(), 1*n);
-		this.EnleveStock(new Propulsion(), 24*n);
-		this.EnleveStock(new CircuitPrincipal(), 8*n);
-		this.AjoutStock(new Drone(), 4*n);
+		this.EnleveStock("Coques", 1*n);
+		this.EnleveStock("Propulsions", 24*n);
+		this.EnleveStock("Circuit principal", 8*n);
+		this.AjoutStock("Drones", 4*n);
 	}
 	
 	public void Examiner() {
-		Set set = hmap.keySet();
-		Iterator it = set.iterator();
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
 		
 		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
 		{
@@ -138,8 +135,8 @@ public class Stock {
 	
 	public void efficacite() {
 		int eff, valeurVenteStock=0, valeurAchat=0;
-		Set set = hmap.keySet();
-		Iterator it = set.iterator();
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
 		
 		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
 		{
@@ -156,4 +153,65 @@ public class Stock {
 		System.out.println("L'efficacité de la production est de "+eff+" euros");
 	}
 	
+	public void ValiderLaProduction() throws IOException {
+		
+	
+		File entree = new File("elements.csv");
+		File sortie = new File("sortie.csv");
+		BufferedReader br = new BufferedReader(new FileReader(entree));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(sortie));
+		bw.write("Code;Nom;Quantite;unite;achat;vente");
+		int q;
+		Scanner s = new Scanner(entree);
+		s.nextLine();
+		String data = "";
+		while(s.hasNext()) {
+			Set<Element> set = hmap.keySet();
+			Iterator<Element> it = set.iterator();
+			data = s.nextLine();
+			String[] values = data.split(";");
+			
+			q=Integer.valueOf(values[2]);
+			
+			
+		
+			for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+				{
+					Element test=(Element) it.next();
+					if (test.getNom().equals(values[1])){
+						if (entry.getValue()!=q) {
+							q=entry.getValue();
+						}
+					}
+			
+				}
+			values[2]=Integer.toString(q);
+			bw.write(values[0]+";"+values[1]+";"+values[2]+";"+values[3]+";"+values[4]+";"+values[5]+"\n");
+			bw.flush();
+		}
+		s.close();
+		br.close();
+		bw.close();
+		
+		sortie.renameTo(new File("elements.csv"));
 	}
+	
+	public void reset() throws IOException {
+		
+		File sortie = new File("sortie.csv");
+		BufferedWriter bw = new BufferedWriter(new FileWriter(sortie));
+		bw.write("Code;Nom;Quantite;unite;achat;vente\n");
+		bw.write("E001;Circuit principal;200;pieces;50;20\n");
+		bw.write("E002;Plastique;500;kilogrammes;3;NA\n");
+		bw.write("E003;Plaques aluminium;100;pieces;20;10\n");
+		bw.write("E004;Servomoteurs;250;pieces;15;10\n");
+		bw.write("E005;Propulsions;0;pieces;NA;15\n");
+		bw.write("E006;Coques;0;pieces;NA;NA\n");
+		bw.write("E007;Drones;0;pieces;NA;150\n");
+		
+		bw.close();
+		sortie.renameTo(new File("elements.csv"));
+		System.out.println("Le stock a été réinitialisé !");
+	}
+	
+}

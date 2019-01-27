@@ -13,6 +13,11 @@ public  class Element {
 		this.prixAchat=prixAchat;
 		this.prixVente=prixVente;
 	}
+	
+	
+	public String getCode() {
+		return this.code;
+	}
 
 	 public String getNom() {
 		 return this.nom;

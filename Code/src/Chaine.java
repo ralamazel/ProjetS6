@@ -4,30 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public abstract class Chaine {
-	private final static ArrayList<Object> list = new ArrayList <>();
-	
-	
-	public Chaine() throws FileNotFoundException  {
-		String fileName = "chaines.csv";
-		File file2 = new File(fileName);
-
-		Scanner s = new Scanner(file2);
-		s.nextLine();
-		
-		String data="";
-		while(s.hasNext()) {
-			
-			data = s.nextLine();
-			String[] values = data.split(";");
-			//System.out.println(data);
-			list.add(values[0]);
-		}
-		
-	}
+public  class Chaine extends ChainesProduction{
+	private String code;
 	protected QuantiteElement[] input;
-	protected QuantiteElement[] output;
-	protected int max;
+	protected String codeElementCreer ;
+	private int quantite;
+	
+	
+	public Chaine(String code, QuantiteElement[] q, String codeElementCreer, int quantite) throws FileNotFoundException  {
+		this.code=code;
+		this.input=q;
+		this.codeElementCreer=codeElementCreer;
+		this.quantite=quantite;
+	}
+	
 	
 	
 	//abstract void fabriquer() {

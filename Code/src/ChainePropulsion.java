@@ -1,9 +1,15 @@
 import java.io.FileNotFoundException;
 
 public class ChainePropulsion extends Chaine{
+
+	public ChainePropulsion(String code, QuantiteElement[] q, String codeElementCreer, int quantite)
+			throws FileNotFoundException {
+		super(code, q, codeElementCreer, quantite);
+		// TODO Auto-generated constructor stub
+	}
 	
 
-		public ChainePropulsion() throws FileNotFoundException{
+	/*	public ChainePropulsion() throws FileNotFoundException{
 			this.input= new QuantiteElement[3];
 			
 			input[0]= new QuantiteServomoteur(1);
@@ -17,6 +23,6 @@ public class ChainePropulsion extends Chaine{
 		
 		public void fabriquer() {
 			
-		}
+		}*/
 	}
 

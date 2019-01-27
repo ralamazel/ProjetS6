@@ -1,10 +1,10 @@
 import java.io.FileNotFoundException;
 
-public abstract class QuantiteElement {
-	private Element e;
+public  class QuantiteElement {
+	private String code;
 	private double quantite;
-	public QuantiteElement(Element e, double quantite) throws FileNotFoundException {
-		this.e=e;
+	public QuantiteElement(String code, double quantite) throws FileNotFoundException {
+		this.code=code;
 		this.quantite=quantite;
 		
 	}
