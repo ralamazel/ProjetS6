@@ -6,7 +6,6 @@ public  class QuantiteElement {
 	public QuantiteElement(String code, double quantite) throws FileNotFoundException {
 		this.code=code;
 		this.quantite=quantite;
-		
 	}
 	
 	public void miseAjourQuantite() {

@@ -52,7 +52,7 @@ public class Stock {
 		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
-			System.out.println ("Nom : "+test.getNom()+" | QuantitÃ© : "+entry.getValue());
+			System.out.println ("Nom : "+test.getNom()+" | Quantité : "+entry.getValue());
 		}
 		System.out.println ();
 	}
@@ -124,7 +124,7 @@ public class Stock {
 			if(entry.getValue()<0) {
 				
 				if(test.getPrixAchat()==0) {
-					System.out.println("Production impossible car l'Ã©lÃ©ment "+test.getNom()+ " ne possÃ¨de pas de prix d'achat");
+					System.out.println("Production impossible car l'élément "+test.getNom()+ " ne possède pas de prix d'achat");
 					return;
 				}
 				
@@ -150,7 +150,7 @@ public class Stock {
 			}
 		}
 		eff=valeurVenteStock-valeurAchat;
-		System.out.println("L'efficacitÃ© de la production est de "+eff+" euros");
+		System.out.println("L'efficacité de la production est de "+eff+" euros");
 	}
 	
 	public void ValiderLaProduction() throws IOException {
@@ -211,7 +211,7 @@ public class Stock {
 		
 		bw.close();
 		sortie.renameTo(new File("elements.csv"));
-		System.out.println("Le stock a Ã©tÃ© rÃ©initialisÃ© !");
+		System.out.println("Le stock a été réinitialisé !");
 	}
 	
 }
