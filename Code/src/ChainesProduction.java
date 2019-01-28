@@ -18,30 +18,35 @@ public class ChainesProduction {
 			
 			String data="";
 			while(s.hasNext()) {
+				HashMap<String,Double> chaine=new HashMap<String,Double>();
 				int numb=0;
 				
 				data = s.nextLine();
 				String[] values = data.split(";");
 				String code = values[0];
-				String[] input = values[2].split("+");
+				String[] input = values[2].split(",");
 				
 				QuantiteElement[] a= new QuantiteElement[10];
 				
 				
 				for(int i=0;i<input.length;i++) {
-					String[] ok=input[i].split(",");
-					int quantite=Integer.valueOf(ok[1]);
-					String codeElement=ok[0];
-					a[i]=new QuantiteElement(codeElement,quantite);
+					
+					String[] ok=input[i].split("x");
+					
+					chaine.put(ok[0], Double.valueOf(ok[1]));
+					
 				}
-				String[] output = values[3].split(",");
+				String[] output = values[3].split("x");
 				
-				Chaine c=new Chaine(code,a,output[0],Integer.valueOf(output[1]));
+				Chaine c=new Chaine(code,values[1],chaine,output[0],Integer.valueOf(output[1]));
+				System.out.println(c.toString());
 				ChainesProduction.ListeDesChaines[numb]=c;
 				
 			}
 			s.close();
 	}
+		
+		
 		
 		
 

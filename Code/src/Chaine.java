@@ -4,24 +4,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public  class Chaine extends ChainesProduction{
+public  class Chaine {
 	private String code;
-	protected QuantiteElement[] input;
+	protected HashMap<String,Double> input;
+	private String nomElemenntACreer;
 	protected String codeElementCreer ;
-	private int quantite;
+	private int quantiteSortie;
 	
 	
-	public Chaine(String code, QuantiteElement[] q, String codeElementCreer, int quantite) throws FileNotFoundException  {
+	public Chaine(String code,String nom,HashMap<String,Double> input, String codeElementCreer, Integer quantiteSortie) throws FileNotFoundException  {
 		this.code=code;
-		this.input=q;
+		this.nomElemenntACreer=nom;
+		this.input=input;
 		this.codeElementCreer=codeElementCreer;
-		this.quantite=quantite;
-	}
-	
-	
-	
-	//abstract void fabriquer() {
-	//}
+		this.quantiteSortie=quantiteSortie;
 	}
 
 
+	@Override
+	public String toString() {
+		return "Chaine [code=" + code + ", input=" + input + ", nomElemenntACreer=" + nomElemenntACreer
+				+ ", codeElementCreer=" + codeElementCreer + ", quantiteSortie=" + quantiteSortie + "]";
+	}
+
+
+	
+	
+	public void fabriquer(String nomElementAFabriquer, int niveauDeFabrication) {
+		
+	}
+	
+	}

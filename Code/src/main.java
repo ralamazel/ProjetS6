@@ -2,7 +2,7 @@ import java.io.*;
 public class main {
 		public static void main (String[] args) throws IOException {
 			
-			Stock s=new Stock();
+			/*Stock s=new Stock();
 			s.afficherStock();
 			
 			
@@ -14,7 +14,9 @@ public class main {
 			s.efficacite();
 			
 			s.ValiderLaProduction();
-			//s.reset();
+			s.reset();*/
+			
+			ChainesProduction c= new ChainesProduction();
 		
 			
 			
