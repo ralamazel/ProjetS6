@@ -46,6 +46,18 @@ public class ChainesProduction {
 			s.close();
 	}
 		
+		public Chaine ChaineElement(String s)
+		{
+			for(int i = 0;i<10; i++)
+			{
+				if(this.ListeDesChaines[i].getNomElementACreer().equals(s))
+				{
+					return ListeDesChaines[i];
+				}
+			}
+			return null;
+		}
+		
 		
 		
 		
