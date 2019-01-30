@@ -1,11 +1,12 @@
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 import java.io.*;
 
 public class Stock {
-	private final static HashMap<Element,Integer> hmap = new HashMap<>();
+	private final static HashMap<Element, Double> hmap = new HashMap<>();
 	
 	public Stock() throws FileNotFoundException {
 		String fileName = "elements.csv";
@@ -36,7 +37,7 @@ public class Stock {
 
 			Element e = new Element(values[0],values[1],values[3],prixAchat,prixVente) ;
 			
-			hmap.put(e, Integer.valueOf(values[2]));
+			hmap.put(e, Double.valueOf(values[2]));
 		}
 		s.close();
 		
@@ -49,36 +50,36 @@ public class Stock {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
-		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
-			System.out.println ("Nom : "+test.getNom()+" | Quantité : "+entry.getValue());
+			System.out.println ("Nom : "+test.getNom()+" | Quantite : "+entry.getValue());
 		}
 		System.out.println ();
 	}
 	
-	public int getQuantite(String nom) {
+	public Double getQuantite(String nom) {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
-		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
 			if (test.getNom().equals(nom)){
 				return(entry.getValue());
 			}
 		}
-		return 1;
+		return 1.0;
 	}
 	
-	public void AjoutStock(String nom, int quantite) {
+	public void AjoutStock(String code, Double quantite) {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
-		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
-			if (test.getNom().equals(nom)) {
+			if (test.getCode().equals(code)) {
 				entry.setValue(entry.getValue() + quantite);
 			}
 			
@@ -86,45 +87,34 @@ public class Stock {
 
 	}
 	
-	public void EnleveStock(String nom, int quantite) {
+	public void EnleveStock(String code, double quantite) {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
-		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
-			if (test.getNom().equals(nom)) {
+			if (test.getCode().equals(code)) {
 				entry.setValue(entry.getValue() - quantite);
 			}
 			
 		}
 
 	}
-	
-	public void ChaineCoque(int n) {
-		this.EnleveStock("Plastique", 5*n);
-		this.EnleveStock("Plaques aluminium", 1*n);
-		this.AjoutStock("Coques", 10*n);
-	}
-	
-	public void ChaineDrone(int n) {
-		this.EnleveStock("Coques", 1*n);
-		this.EnleveStock("Propulsions", 24*n);
-		this.EnleveStock("Circuit principal", 8*n);
-		this.AjoutStock("Drones", 4*n);
-	}
+
+
 	
 	public void Examiner() {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
-		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
 			if(entry.getValue()<0) {
 				
 				if(test.getPrixAchat()==0) {
-					System.out.println("Production impossible car l'élément "+test.getNom()+ " ne possède pas de prix d'achat");
+					System.out.println("Production impossible car l'element "+test.getNom()+ " ne possede pas de prix d'achat");
 					return;
 				}
 				
@@ -134,11 +124,13 @@ public class Stock {
 	}
 	
 	public void efficacite() {
-		int eff, valeurVenteStock=0, valeurAchat=0;
+		double eff;
+		double valeurAchat=0;
+		double valeurVenteStock=0;
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
-		for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
 			if (entry.getValue()>0) {
@@ -150,7 +142,7 @@ public class Stock {
 			}
 		}
 		eff=valeurVenteStock-valeurAchat;
-		System.out.println("L'efficacité de la production est de "+eff+" euros");
+		System.out.println("L'efficacite de la production est de "+eff+" euros");
 	}
 	
 	public void ValiderLaProduction() throws IOException {
@@ -160,8 +152,8 @@ public class Stock {
 		File sortie = new File("sortie.csv");
 		BufferedReader br = new BufferedReader(new FileReader(entree));
 		BufferedWriter bw = new BufferedWriter(new FileWriter(sortie));
-		bw.write("Code;Nom;Quantite;unite;achat;vente");
-		int q;
+		bw.write("Code;Nom;Quantite;unite;achat;vente\n");
+		Double q;
 		Scanner s = new Scanner(entree);
 		s.nextLine();
 		String data = "";
@@ -171,11 +163,11 @@ public class Stock {
 			data = s.nextLine();
 			String[] values = data.split(";");
 			
-			q=Integer.valueOf(values[2]);
+			q=Double.valueOf(values[2]);
 			
 			
 		
-			for (HashMap.Entry<Element, Integer> entry : hmap.entrySet())
+			for (Entry<Element, Double> entry : hmap.entrySet())
 				{
 					Element test=(Element) it.next();
 					if (test.getNom().equals(values[1])){
@@ -185,7 +177,7 @@ public class Stock {
 					}
 			
 				}
-			values[2]=Integer.toString(q);
+			values[2]=Double.toString(q);
 			bw.write(values[0]+";"+values[1]+";"+values[2]+";"+values[3]+";"+values[4]+";"+values[5]+"\n");
 			bw.flush();
 		}
@@ -211,7 +203,7 @@ public class Stock {
 		
 		bw.close();
 		sortie.renameTo(new File("elements.csv"));
-		System.out.println("Le stock a été réinitialisé !");
+		System.out.println("Le stock a ete reinitialise !");
 	}
 	
 }

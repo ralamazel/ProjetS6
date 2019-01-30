@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ChainesProduction {
-	
-	
+		
+		private int ind=0;
 		private  static Chaine[] ListeDesChaines;
 		
 		public ChainesProduction() throws FileNotFoundException {
-			this.ListeDesChaines = new Chaine[10];
+			
+			ChainesProduction.ListeDesChaines = new Chaine[10];
 			String fileName = "chaines.csv";
 			File file = new File(fileName);
 
@@ -19,14 +20,13 @@ public class ChainesProduction {
 			String data="";
 			while(s.hasNext()) {
 				HashMap<String,Double> chaine=new HashMap<String,Double>();
-				int numb=0;
 				
 				data = s.nextLine();
 				String[] values = data.split(";");
 				String code = values[0];
 				String[] input = values[2].split(",");
 				
-				QuantiteElement[] a= new QuantiteElement[10];
+			
 				
 				
 				for(int i=0;i<input.length;i++) {
@@ -38,28 +38,24 @@ public class ChainesProduction {
 				}
 				String[] output = values[3].split("x");
 				
-				Chaine c=new Chaine(code,values[1],chaine,output[0],Integer.valueOf(output[1]));
-				System.out.println(c.toString());
-				ChainesProduction.ListeDesChaines[numb]=c;
+				Chaine c=new Chaine(code,values[1],chaine,output[0],Double.valueOf(output[1]));
+				ChainesProduction.ListeDesChaines[this.ind]=c;
+				this.ind=this.ind+1;
 				
 			}
 			s.close();
 	}
 		
-		public Chaine ChaineElement(String s)
-		{
-			for(int i = 0;i<10; i++)
-			{
-				if(this.ListeDesChaines[i].getNomElementACreer().equals(s))
-				{
+	
+		public Chaine getChaine(String nomElement) {
+			for (int i=0;i<this.ind;i++) {
+				if(ChainesProduction.ListeDesChaines[i].getnomElementACreer().equals(nomElement)){
 					return ListeDesChaines[i];
 				}
 			}
+			System.out.println("La chaine n'a pas été trouvée.");
 			return null;
 		}
 		
 		
-		
-		
-
 }
