@@ -14,12 +14,14 @@ public class Interface extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Group root = new Group();
-		Scene scene = new Scene(root, 800, 600, Color.LIGHTBLUE);
+		Scene scene = new Scene(root, 1000, 750, Color.LIGHTBLUE);
 		
-		Menu menu = new Menu();   
+		Menu menu = new Menu(3);   
+		
+		
 		root.getChildren().add(menu);
 		
-		primaryStage.setTitle("ProjetS6");
+		primaryStage.setTitle("Menu");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

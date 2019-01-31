@@ -34,7 +34,4 @@ public  class Element {
 	 public String getUnite() {
 		 return this.unite;
 	 }
-	
-	
-
 }
