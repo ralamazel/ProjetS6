@@ -1,10 +1,16 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Menu extends Parent{
-	public Menu(int NbChaines) {
+	public Menu(int NbChaines) throws IOException {
+		Stock s=new Stock();
+		ChainesProduction c= new ChainesProduction();
+
 		Rectangle fond_menu = new Rectangle();
 		fond_menu.setWidth(1000);
 		fond_menu.setHeight(1000);
@@ -23,7 +29,7 @@ public class Menu extends Parent{
         this.getChildren().add(titre);
 		
 		for(int i = 0 ; i < NbChaines ; i++) {
-			InfosChaine infochaine = new InfosChaine("Niveau d'activité de production de la Chaine " + (i+1) + " :");
+			InfosChaine infochaine = new InfosChaine("Niveau d'activité de production de la Chaine " + (i+1) + " :",c,s);
 			infochaine.setStyle("-fx-font: 15 arial");
 			this.getChildren().add(infochaine);
 		}

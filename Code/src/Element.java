@@ -6,6 +6,13 @@ public  class Element {
 	private int prixAchat;
 	private int prixVente;
 	
+	/**
+	 * @param code : le code de l'élément
+	 * @param nom : le nom de l'élément
+	 * @param unite : l'unité de l'élément ( pièces, kilo ...)
+	 * @param prixAchat : le prix d'achat d'un élément
+	 * @param prixVente : le prix de vente d'un élément
+	 */
 	public Element(String code,String nom, String unite, int prixAchat, int prixVente) {
 		this.code=code;
 		this.nom=nom;

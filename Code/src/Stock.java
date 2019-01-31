@@ -8,6 +8,10 @@ import java.io.*;
 public class Stock {
 	private final static HashMap<Element, Double> hmap = new HashMap<>();
 	
+	/**
+	 * Le constructeur de la classe Stock
+	 * @throws FileNotFoundException
+	 */
 	public Stock() throws FileNotFoundException {
 		String fileName = "elements.csv";
 		File file = new File(fileName);
@@ -46,6 +50,9 @@ public class Stock {
 		
 
 	
+	/**
+	 * Méthode permettant d'afficher le stock
+	 */
 	public void afficherStock() {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
@@ -58,6 +65,10 @@ public class Stock {
 		System.out.println ();
 	}
 	
+	/**
+	 * @param nom : nom de l'élément dont on cherche la quantité
+	 * @return la quantité de l'élément ou 1 si le nom de l'élément n'est pas dans la hashmap
+	 */
 	public Double getQuantite(String nom) {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
@@ -72,6 +83,13 @@ public class Stock {
 		return 1.0;
 	}
 	
+	
+	
+	/**
+	 * Méthode permettant d'ajouter une quantité d'élément au stock à partir de son code
+	 * @param code : code de l'élément 
+	 * @param quantite : quantité de l'élément à ajouter au stock
+	 */
 	public void AjoutStock(String code, Double quantite) {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
@@ -87,6 +105,11 @@ public class Stock {
 
 	}
 	
+	/**
+	 * méthode permettant de retirer du stock une quantité de l'élément à partir de son code
+	 * @param code : code de l'élément à retirer du stock
+	 * @param quantite :  quantité de l'élément à retirer du stock
+	 */
 	public void EnleveStock(String code, double quantite) {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
@@ -104,6 +127,9 @@ public class Stock {
 
 
 	
+	/**
+	 * Permet de vérifier si l'élément peut-être produit
+	 */
 	public void Examiner() {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
@@ -123,6 +149,9 @@ public class Stock {
 		System.out.println("Production possible");
 	}
 	
+	/**
+	 * Méthode calculant l'efficacité de la production
+	 */
 	public void efficacite() {
 		double eff;
 		double valeurAchat=0;
@@ -145,6 +174,10 @@ public class Stock {
 		System.out.println("L'efficacite de la production est de "+eff+" euros");
 	}
 	
+	/**
+	 * Methode permettant de valider la production effectuée et de l'inscrire dans le fichier sortie.csv
+	 * @throws IOException
+	 */
 	public void ValiderLaProduction() throws IOException {
 		
 	
@@ -188,6 +221,10 @@ public class Stock {
 		sortie.renameTo(new File("elements.csv"));
 	}
 	
+	/**
+	 * Méthode remettant le stock à 0
+	 * @throws IOException
+	 */
 	public void reset() throws IOException {
 		
 		File sortie = new File("sortie.csv");

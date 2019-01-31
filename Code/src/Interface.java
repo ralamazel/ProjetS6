@@ -1,11 +1,18 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Interface extends Application {
-
+	private Stage stage;
 	public static void main(String[] args) {
 		Application.launch(Interface.class, args);
 
@@ -13,6 +20,7 @@ public class Interface extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		stage = primaryStage;
 		Group root = new Group();
 		Scene scene = new Scene(root, 1000, 750, Color.LIGHTBLUE);
 		
@@ -25,5 +33,7 @@ public class Interface extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
+	
 
 }

@@ -8,6 +8,10 @@ public class ChainesProduction {
 		private int ind=0;
 		private  static Chaine[] ListeDesChaines;
 		
+		/** 
+		 * Le constructeur de la classe chainesProduction.
+		 * @throws FileNotFoundException : le stock va chercher dans elements.csv
+		 */
 		public ChainesProduction() throws FileNotFoundException {
 			
 			ChainesProduction.ListeDesChaines = new Chaine[10];
@@ -47,13 +51,18 @@ public class ChainesProduction {
 	}
 		
 	
+		/**
+		 * Méthode permettant de trouver la chaine de production correspondante à l'élément que l'on veut créer
+		 * @param nomElement : l'élément dont on recherche la chaîne de production
+		 * @return null si l'élément n'est pas trouvé sinon la chaine de production de l'élément
+		 */
 		public Chaine getChaine(String nomElement) {
 			for (int i=0;i<this.ind;i++) {
 				if(ChainesProduction.ListeDesChaines[i].getnomElementACreer().equals(nomElement)){
 					return ListeDesChaines[i];
 				}
 			}
-			System.out.println("La chaine n'a pas été trouvée.");
+			System.out.println("La chaine n'a pas été trouvé.");
 			return null;
 		}
 		
