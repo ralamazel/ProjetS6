@@ -95,6 +95,15 @@ public class Interface extends Application {
 		boutonReset.setMinSize(100, 50);
 		// rajouter le setOnAction reset
 		
+		boutonReset.setOnAction(e->{
+			try {
+				s.reset();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
 		Button boutonProduire = new Button("Produire");
 		boutonProduire.setStyle("-fx-font: 30 arial");
 		boutonProduire.setTranslateX(570);
@@ -142,26 +151,10 @@ public class Interface extends Application {
 	        }
 	        JavaFXCSVTableView j = new JavaFXCSVTableView();
 	        j.start(stage);
-	        //stage.setScene(resultats());
-	        
 		});
 		
 		root.getChildren().add(boutonReset);
 		root.getChildren().add(boutonProduire);
 		return new Scene(root);
 	}
-	
-	protected Scene resultats() {
-		VBox root = new VBox();
-        Label userLabel = new Label("Insert the username:");
-        final TextField userField = new TextField();
-        Button createAccountButton = new Button("create account");
-        createAccountButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(ActionEvent t){
-                  System.out.println("Account for user " + userField.getText() + " was created succesfully");
-            }
-       });
-        root.getChildren().addAll(userLabel,userField,createAccountButton);
-        return new Scene(root);
-    }
 }

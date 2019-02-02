@@ -95,8 +95,6 @@ public class Stock {
 		return 1.0;
 	}
 	
-	
-	
 	/**
 	 * Methode permettant d'ajouter une quantite d'element au stock a partir de son code
 	 * @param code : code de l'element 
@@ -183,7 +181,6 @@ public class Stock {
 			Element test=(Element) it.next();
 			if (entry.getValue()>0) {
 				valeurVenteStock= valeurVenteStock + (entry.getValue()*test.getPrixVente());
-				
 			}
 			else {
 				valeurAchat= valeurAchat + (-1*(entry.getValue()*test.getPrixAchat()));
