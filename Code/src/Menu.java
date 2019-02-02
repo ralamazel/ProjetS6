@@ -1,25 +1,31 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
 
 public class Menu extends Parent{
 	
+	private Stage stage;
 	private int textFieldPosY = 200;
 	private int labelPosY = 200;
 	
-	public Menu(int NbChaines) throws IOException {
+	public Menu() throws IOException {
 		Stock s=new Stock();
 		ChainesProduction c= new ChainesProduction();
 
 		Rectangle fond_menu = new Rectangle();
 		fond_menu.setWidth(1000);
-		fond_menu.setHeight(1000);
+		fond_menu.setHeight(750);
 		fond_menu.setFill(Color.WHITE);
 		fond_menu.setStroke(Color.LIGHTGREY);
 		fond_menu.setStrokeWidth(5);
@@ -50,11 +56,6 @@ public class Menu extends Parent{
 		labelChaineDrones.setTranslateY(labelPosY);
 		labelChaineDrones.setTranslateX(100);
 		
-		Button bouton = new Button("Produire");
-		bouton.setStyle("-fx-font: 30 arial");
-		bouton.setTranslateX(429);
-		bouton.setTranslateY(650);
-		bouton.setMinSize(100, 50);
 		
 		//Informations sur les propulsions
 		TextField textFieldPropulsion = new TextField();
@@ -73,36 +74,92 @@ public class Menu extends Parent{
 		textFieldDrones.setTranslateX(600);
 		textFieldDrones.setTranslateY(textFieldPosY);
 		
-		bouton.setOnAction(e->
-		{
-			 Integer niveauProd = Integer.valueOf(textFieldDrones.getText());
-	            c.getChaine("Drones").fabriquer(niveauProd, s);
-	            
-	                    try {
-							s.ValiderLaProduction();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-	                    this.setVisible(false);
+		Pane root = new Pane();
+		root.setMinSize(750, 750);
+		
+		Menu menu = new Menu();
+		root.getChildren().add(menu);
+		
+		Button boutonReset = new Button("Reset");
+		boutonReset.setStyle("-fx-font: 30 arial");
+		boutonReset.setTranslateX(300);
+		boutonReset.setTranslateY(650);
+		boutonReset.setMinSize(100, 50);
+		// rajouter le setOnAction reset
+		
+		root.getChildren().add(boutonReset);
+		
+		/*boutonProduire.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				stage.setScene(resultats());
+			}
 		});
-		s.ValiderLaProduction();
+		root.getChildren().add(boutonProduire);
+		return new Scene(root);
+		}*/
+	
+		Button boutonProduire = new Button("Produire");
+		boutonProduire.setStyle("-fx-font: 30 arial");
+		boutonProduire.setTranslateX(570);
+		boutonProduire.setTranslateY(650);
+		boutonProduire.setMinSize(100, 50);
 		
-		
-		this.getChildren().add(fond_menu);
-        this.getChildren().add(titre);
-        
-		this.getChildren().add(labelChainePropulsions);
-		this.getChildren().add(textFieldPropulsion);
-		
-		this.getChildren().add(labelChaineCoques);
-		this.getChildren().add(textFieldCoques);
-		
-		this.getChildren().add(labelChaineDrones);
-		this.getChildren().add(textFieldDrones);
-		
-		this.getChildren().add(bouton);
-
-
+		boutonProduire.setOnAction(e->
+		{
+			Integer niveauProdDrones = 0,niveauProdCoques = 0,niveauProdPropulsions= 0;
+			
+			 niveauProdDrones = Integer.valueOf(textFieldDrones.getText());
+			 niveauProdCoques = Integer.valueOf(textFieldCoques.getText());
+			 niveauProdPropulsions = Integer.valueOf(textFieldPropulsion.getText());
+			
+			 
+			 if (niveauProdDrones != 0){
+				 c.getChaine("Drones").fabriquer(niveauProdDrones, s);
+			 }
+	            
+	         if(niveauProdCoques != 0) {
+	        	 c.getChaine("Coques").fabriquer(niveauProdCoques, s);
+	         }
+	          
+	         if(niveauProdPropulsions != 0){
+	           c.getChaine("Propulsion").fabriquer(niveauProdPropulsions, s);
+	         }
+	              
+	       try {
+			s.ValiderLaProduction();
+	       } catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+	       }
+	       root.getChildren().add(boutonProduire);
+	       stage.setScene(resultats());
+	       
+		});
 	}
-}
+		
+	protected Scene resultats() {
+		VBox root = new VBox();
+        Label userLabel = new Label("Insert the username:");
+        final TextField userField = new TextField();
+        Button createAccountButton = new Button("create account");
+        createAccountButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent t){
+                  System.out.println("Account for user " + userField.getText() + " was created succesfully");
+            }
+       });
+        root.getChildren().addAll(userLabel,userField,createAccountButton);
+        return new Scene(root);
+    }
+	
+	this.getChildren().add(fond_menu);
+    this.getChildren().add(titre);
+    
+	this.getChildren().add(labelChainePropulsions);
+	this.getChildren().add(textFieldPropulsion);
+	
+	this.getChildren().add(labelChaineCoques);
+	this.getChildren().add(textFieldCoques);
+	
+	this.getChildren().add(labelChaineDrones);
+	this.getChildren().add(textFieldDrones);
+}}
