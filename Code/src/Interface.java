@@ -19,6 +19,7 @@ public class Interface extends Application {
 		Application.launch(Interface.class, args);
 	}
 	@Override
+	
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		Scene scene = accueil();
