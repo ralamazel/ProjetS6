@@ -26,10 +26,12 @@ public class Interface extends Application {
 		primaryStage.show();
 	}
 	
-	public Scene accueil() {
+	public Scene accueil() throws IOException {
 		
 		Pane root = new Pane();
 		root.setMinSize(750, 750);
+		Menu menu = new Menu();
+		root.getChildren().add(menu);
 		
 		Button boutonProduire = new Button("Produire");
 		boutonProduire.setStyle("-fx-font: 30 arial");
