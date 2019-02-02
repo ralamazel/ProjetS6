@@ -11,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 public class Menu extends Parent{
 	
 	private int textFieldPosY = 200;
+	private int labelPosY = 200;
 	
 	public Menu(int NbChaines) throws IOException {
 		Stock s=new Stock();
@@ -29,6 +30,25 @@ public class Menu extends Parent{
 		titre.setStyle("-fx-font: 30 arial");
 		titre.setTranslateX(462);
 		titre.setTranslateY(50);
+		
+		Label labelChainePropulsions = new Label("Niveau d'activité de production de la Chaine 1 : ");
+		labelChainePropulsions.setStyle("-fx-font: 15 arial");
+		labelChainePropulsions.setTranslateY(labelPosY);
+		labelChainePropulsions.setTranslateX(100);
+		
+		labelPosY += 150;
+		
+		Label labelChaineCoques = new Label("Niveau d'activité de production de la Chaine 2 : ");
+		labelChaineCoques.setStyle("-fx-font: 15 arial");
+		labelChaineCoques.setTranslateY(labelPosY);
+		labelChaineCoques.setTranslateX(100);
+		
+		labelPosY += 150;
+		
+		Label labelChaineDrones = new Label("Niveau d'activité de production de la Chaine 3 : ");
+		labelChaineDrones.setStyle("-fx-font: 15 arial");
+		labelChaineDrones.setTranslateY(labelPosY);
+		labelChaineDrones.setTranslateX(100);
 		
 		Button bouton = new Button("Produire");
 		bouton.setStyle("-fx-font: 30 arial");
@@ -69,35 +89,19 @@ public class Menu extends Parent{
 		s.ValiderLaProduction();
 		
 		
-		InfosChainePropulsions infochaine1 = new InfosChainePropulsions("Niveau d'activité de production de la Chaine 1 : ",c,s);
-		infochaine1.setStyle("-fx-font: 15 arial");
-		
-		InfosChaineCoques infochaine2 = new InfosChaineCoques("Niveau d'activité de production de la Chaine 2 : ", c, s);
-		infochaine2.setStyle("-fx-font: 15 arial");
-		
-		InfosChaineDrones infochaine3 = new InfosChaineDrones("Niveau d'activité de production de la Chaine 3 : ", c, s);
-		infochaine3.setStyle("-fx-font: 15 arial");
-		
-		
 		this.getChildren().add(fond_menu);
         this.getChildren().add(titre);
         
-		this.getChildren().add(infochaine1);
+		this.getChildren().add(labelChainePropulsions);
 		this.getChildren().add(textFieldPropulsion);
 		
-		this.getChildren().add(infochaine2);
+		this.getChildren().add(labelChaineCoques);
 		this.getChildren().add(textFieldCoques);
 		
-		this.getChildren().add(infochaine3);
+		this.getChildren().add(labelChaineDrones);
 		this.getChildren().add(textFieldDrones);
 		
 		this.getChildren().add(bouton);
-		
-		
-		
-		
-		
-		
 
 
 	}
