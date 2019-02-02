@@ -20,7 +20,7 @@ public class main {
 				s.ValiderLaProduction();
 				
 			}
-			s.reset();
+			//s.reset();
 			
 		}
 }
