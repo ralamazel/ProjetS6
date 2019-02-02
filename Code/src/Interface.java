@@ -140,7 +140,10 @@ public class Interface extends Application {
 			// TODO Auto-generated catch block
 	        	e1.printStackTrace();
 	        }
-	        stage.setScene(resultats());
+	        JavaFXCSVTableView j = new JavaFXCSVTableView();
+	        j.start(stage);
+	        //stage.setScene(resultats());
+	        
 		});
 		
 		root.getChildren().add(boutonReset);

@@ -68,7 +68,7 @@ public class JavaFXCSVTableView extends Application {
  
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("CVS");
+        primaryStage.setTitle("Lecture du fichier de stocks");
  
         Group root = new Group();
  
