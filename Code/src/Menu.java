@@ -58,19 +58,19 @@ public class Menu extends Parent{
 					
 					
 					//Informations sur les propulsions
-					TextField textFieldPropulsion = new TextField();
+					TextField textFieldPropulsion = new TextField("0");
 					textFieldPropulsion.setTranslateX(600);
 					textFieldPropulsion.setTranslateY(textFieldPosY);
 					textFieldPosY += 150;
 					
 					//Informations sur les coques
-					TextField textFieldCoques = new TextField();
+					TextField textFieldCoques = new TextField("0");
 					textFieldCoques.setTranslateX(600);
 					textFieldCoques.setTranslateY(textFieldPosY);
 					textFieldPosY += 150;
 					
 					//Informations sur les drones
-					TextField textFieldDrones = new TextField();
+					TextField textFieldDrones = new TextField("0");
 					textFieldDrones.setTranslateX(600);
 					textFieldDrones.setTranslateY(textFieldPosY);
 					
@@ -131,10 +131,10 @@ public class Menu extends Parent{
 						e1.printStackTrace();
 				       }
 				       root.getChildren().add(boutonProduire);
-				       stage.setScene(resultats());
+				      // stage.setScene(resultats());
 				       
 					});
-				
+	
 				this.getChildren().add(fond_menu);
 			    this.getChildren().add(titre);
 			    
@@ -147,21 +147,21 @@ public class Menu extends Parent{
 				this.getChildren().add(labelChaineDrones);
 				this.getChildren().add(textFieldDrones);
 				}
+				/*protected Scene resultats() {
+				VBox root = new VBox();
+		        Label userLabel = new Label("Insert the username:");
+		        final TextField userField = new TextField();
+		        Button createAccountButton = new Button("create account");
+		        createAccountButton.setOnAction(new EventHandler<ActionEvent>(){
+		            public void handle(ActionEvent t){
+		                  System.out.println("Account for user " + userField.getText() + " was created succesfully");
+		            }
+		       });
+		        root.getChildren().addAll(userLabel,userField,createAccountButton);
+		        return new Scene(root);
+		    }
+			*/
 				
-				
-	protected Scene resultats() {
-		VBox root = new VBox();
-        Label userLabel = new Label("Insert the username:");
-        final TextField userField = new TextField();
-        Button createAccountButton = new Button("create account");
-        createAccountButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(ActionEvent t){
-                  System.out.println("Account for user " + userField.getText() + " was created succesfully");
-            }
-       });
-        root.getChildren().addAll(userLabel,userField,createAccountButton);
-        return new Scene(root);
-    }
 	
 
 }
