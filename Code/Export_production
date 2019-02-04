@@ -15,11 +15,11 @@ Efficacite avant production : 7500.0
 STOCK APRES PRODUCTION :
 Code;Nom;Quantite;unite;achat;vente
 E001;Circuit principal;200.0;pieces;50;20
-E002;Plastique;490.0;kilogrammes;3;NA
-E003;Plaques aluminium;98.0;pieces;20;10
-E004;Servomoteurs;250.0;pieces;15;10
-E005;Propulsions;0.0;pieces;NA;15
-E006;Coques;20.0;pieces;NA;NA
+E002;Plastique;190.0;kilogrammes;3;NA
+E003;Plaques aluminium;38.0;pieces;20;10
+E004;Servomoteurs;-250.0;pieces;15;10
+E005;Propulsions;500.0;pieces;NA;15
+E006;Coques;120.0;pieces;NA;NA
 E007;Drones;0.0;pieces;NA;150
 
-Efficacite après production : 7480.0
+Efficacite après production : 8130.0
