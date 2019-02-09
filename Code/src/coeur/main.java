@@ -23,6 +23,6 @@ public class main {
 				
 			}
 			s.reset();
-			
+			//fjzqfjhzqhjfjizqfizqfhzqfqzf
 		}
 }
