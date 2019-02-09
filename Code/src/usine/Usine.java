@@ -15,6 +15,7 @@ public class Usine{
 		this.c=new ChainesProduction(cheminChaines);
 	}
 
+	
 	public Stock getS() {
 		return s;
 	}
@@ -23,5 +24,4 @@ public class Usine{
 		return c;
 	}
 
-	
 }
