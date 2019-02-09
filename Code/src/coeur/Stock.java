@@ -1,9 +1,12 @@
+package coeur;
 import java.util.HashMap;
 import java.lang.Object;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
+
+import gestionfichier.FichierCSVElements;
 import javafx.scene.shape.Path;
 import java.lang.*;
 import java.io.*;
@@ -14,50 +17,24 @@ import java.nio.file.StandardCopyOption;
 
 import static java.nio.file.StandardCopyOption.*;
 public class Stock {
-	private final static HashMap<Element, Double> hmap = new HashMap<>();
-	private String tout="";
+	private HashMap<Element, Double> hmap;
 	private FileWriter f;
 	private double efficacite;
+	private FichierCSVElements elements;
+	private String nomFichier;
 	/**
 	 * Le constructeur de la classe Stock
 	 * @throws IOException 
 	 */
-	public Stock() throws IOException {
-		File file = new File("elements.csv");
-	    
-		int prixVente,prixAchat;
-		
-		Scanner s = new Scanner(file);
-		this.tout=this.tout+"Code;Nom;Quantite;unite;achat;vente\n";
-		s.nextLine();
-		
-		String data = "";
-		while(s.hasNext()) {
-			
-			data = s.nextLine();
-			this.tout=this.tout+data+"\n";
-			String[] values = data.split(";");
-			if(!values[4].equals("NA")) {
-				 prixAchat=Integer.valueOf(values[4]); 
-			}
-			else {
-				prixAchat=0;
-			}
-			
-			if(!values[5].equals("NA")) {
-				prixVente = Integer.valueOf(values[5]);
-			}
-			else {
-				prixVente=0;
-			}
-
-			Element e = new Element(values[0],values[1],values[3],prixAchat,prixVente) ;
-			
-			hmap.put(e, Double.valueOf(values[2]));
-		}
-		s.close();
+	public Stock(String cheminFichierElements) throws IOException {
+		this.elements=new FichierCSVElements(cheminFichierElements);
+		this.hmap=elements.Charger();
 		this.efficacite=this.getEfficacite();
-	}	
+		this.nomFichier=cheminFichierElements;
+		}
+	public String getNomFichier() {
+		return this.nomFichier;
+	}
 	      
 		
 
@@ -68,13 +45,12 @@ public class Stock {
 	public void afficherStock() {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
-		
 		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
 			System.out.println ("Nom : "+test.getNom()+" | Quantite : "+entry.getValue());
 		}
-		System.out.println ();
+
 	}
 	
 	/**
@@ -156,7 +132,7 @@ public class Stock {
 					return false;
 				}
 				else {
-					f.append(test.getNom()+" : "+entry.getValue()+ " unites à acheter.\n");
+					f.append(test.getNom()+" : "+entry.getValue()+ " unites a acheter.\n");
 				}
 				
 			}
@@ -199,7 +175,7 @@ public class Stock {
 		
 		f = new FileWriter("Export_production");
 		f.append("STOCK AVANT PRODUCTION :\n");
-		f.append(this.tout+"\n");
+		//f.append(this.tout+"\n");
 		f.append("Efficacite avant production : "+this.efficacite+"\n\n");
 		f.append("-------------------------------------------------\n\n");
 		f.append("STOCK APRES PRODUCTION :\n");
@@ -243,8 +219,8 @@ public class Stock {
 		bw.close();
 		
 		sortie.renameTo(new File("elements.csv"));
-		System.out.println("La production a été validée !!");
-		f.append("\nEfficacite après production : " +this.getEfficacite()+"\n");
+		System.out.println("La production a ete valide !!");
+		f.append("\nEfficacite apres production : " +this.getEfficacite()+"\n");
 		f.close();
 		
 	}
@@ -257,9 +233,60 @@ public class Stock {
 		
 		File sortie = new File("sortie.csv");
 		BufferedWriter bw = new BufferedWriter(new FileWriter(sortie));
-		bw.write(this.tout);
+		bw.write("Code;Nom;Quantite;unite;achat;vente;stockage;Demande\r\n" + 
+				"E001;Sucre;500;kg;1;NA;cp;0\r\n" + 
+				"E002;farine;1500;kg;1;NA;cp;0\r\n" + 
+				"E003;farine complete;0;kg;1;NA;cp;0\r\n" + 
+				"E004;blanc oeuf;200;litre;2;NA;cl;0\r\n" + 
+				"E005;jaune oeuf;400;litre;2;NA;cl;0\r\n" + 
+				"E006;beurre;2500;kg;3;NA;pr;0\r\n" + 
+				"E007;margarine;0;kg;2;NA;pr;0\r\n" + 
+				"E008;huile palme;5000;litre;1;NA;p;0\r\n" + 
+				"E009;huile colza;1500;litre;2;NA;p;0\r\n" + 
+				"E010;poudre a lever;50;kg;2;NA;p;0\r\n" + 
+				"E011;beurre cacao;800;kg;3;NA;p;0\r\n" + 
+				"E012;pate cacao;150;kg;12;NA;cp;0\r\n" + 
+				"E013;proteine de lait;0;kg;1;NA;cp;0\r\n" + 
+				"E014;lait en poudre;500;kg;1;NA;cp;0\r\n" + 
+				"E015;emulsifiant;10;litre;3;NA;cl;0\r\n" + 
+				"E016;levure;89;unite;3;NA;cp;0\r\n" + 
+				"E017;confiture abricot;50;litre;2;NA;clr;0\r\n" + 
+				"E018;noix;50;kg;5;NA;p;0\r\n" + 
+				"E019;Chocolat 30†%;20;litre;10;8;cl;0\r\n" + 
+				"E020;Chocolat 40†%;12;litre;12;10;cl;0\r\n" + 
+				"E021;Chocolat 50†%;30;litre;NA;16;cl;0\r\n" + 
+				"E022;Pate biscuit Q1;0;litre;NA;NA;clr;0\r\n" + 
+				"E023;Pate biscuit Q2;0;litre;NA;NA;clr;0\r\n" + 
+				"E024;Pate biscuit Q3;0;litre;NA;NA;clr;0\r\n" + 
+				"E025;Gateau marque A;0;carton;NA;10;p;200\r\n" + 
+				"E026;Gateau marque B;0;carton;NA;8;p;300\r\n" + 
+				"E027;Gateau marque C;0;carton;NA;7;p;250\r\n" + 
+				"E028;Pate levÈe huile;0;kg;NA;NA;cb;0\r\n" + 
+				"E029;Pate levÈe beurre;0;kg;NA;NA;cb;0\r\n" + 
+				"E030;Brioche;10;carton;NA;14;p;300\r\n" + 
+				"E031;Brioche beurre;0;carton;NA;16;p;100\r\n" + 
+				"E032;Pain chocolat A;0;carton;NA;14;p;50\r\n" + 
+				"E033;Pain chocolat B;0;carton;NA;12;p;75\r\n" + 
+				"E034;Biscuit marque A;0;carton;NA;8;p;400\r\n" + 
+				"E035;Biscuit marque B et C;0;carton;NA;7;p;750\r\n" + 
+				"E036;Pate crepes;25;litre;9;NA;cb;0\r\n" + 
+				"E037;Crepes natures;0;carton;NA;7;p;175\r\n" + 
+				"E038;Crepes fourrees choc;0;carton;NA;9;p;100\r\n" + 
+				"E039;Crepes fourres abricot;0;carton;NA;8;p;75\r\n" + 
+				"E040;Brownies marque A;0;carton;NA;10;p;250\r\n" + 
+				"E041;Brownies marque B;0;carton;NA;8;p;275\r\n" + 
+				"E042;Cookies Choc marque A;0;carton;NA;9;p;300\r\n" + 
+				"E043;Cookies Choc marque B;0;carton;NA;8;p;400\r\n" + 
+				"E044;Cookies Choc/Noix marque A;0;carton;NA;9;p;150\r\n" + 
+				"E045;Cookies Choc/Noix marque B;0;carton;NA;8;p;300\r\n" + 
+				"E046;Pate Madeleines Q1;0;litre;NA;NA;cb;0\r\n" + 
+				"E047;Pate Madeleines Q2;0;litre;NA;NA;cb;0\r\n" + 
+				"E048;Madeleines marque A;0;carton;NA;8;p;200\r\n" + 
+				"E049;Madeleines marque B;0;carton;NA;7;p;150\r\n" + 
+				"E050;Madeleines Choc;0;carton;NA;8;p;100\r\n" + 
+				"E051;Poudre a lever;28;kg;2;NA;cp;0");
 		bw.close();
-		sortie.renameTo(new File("elements.csv"));
+		sortie.renameTo(new File("elementsV2.csv"));
 		System.out.println("Le stock a ete reinitialise !");
 	}
 	

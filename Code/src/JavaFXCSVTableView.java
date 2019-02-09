@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -99,9 +100,22 @@ public class JavaFXCSVTableView extends Application {
         tableView.setItems(dataList);
         tableView.getColumns().addAll(columnF1, columnF2, columnF3, columnF4, columnF5, columnF6);
  
+        Button boutonRetour = new Button("Retour");
+        boutonRetour.setStyle("-fx-font: 30 arial");
+        boutonRetour.setTranslateX(300);
+        boutonRetour.setTranslateY(650);
+        boutonRetour.setMinSize(100, 50);
+        
+        
+        /*
+        boutonRetour.setOnAction(e ->{
+        	return new Scene(root);
+        });*/
+        
         VBox vBox = new VBox();
         vBox.setSpacing(10);
         vBox.getChildren().add(tableView);
+        //vBox.getChildren().add(boutonRetour);
  
         root.getChildren().add(vBox);
  

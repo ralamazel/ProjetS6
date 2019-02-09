@@ -12,9 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import coeur.*;
 
-public class Interface extends Application {
-	private Stage stage;
+public class Interface  {
+/*	private Stage stage;
 	private int textFieldPosY = 200;
 	private int labelPosY = 200;
 	public static void main(String[] args) {
@@ -156,5 +157,5 @@ public class Interface extends Application {
 		root.getChildren().add(boutonReset);
 		root.getChildren().add(boutonProduire);
 		return new Scene(root);
-	}
+	}*/
 }
