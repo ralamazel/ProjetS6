@@ -7,20 +7,24 @@ public  class Element {
 	private String unite;
 	private int prixAchat;
 	private int prixVente;
+	private String stockage;
+	private int demande;
 	
 	/**
-	 * @param code : le code de l'élément
-	 * @param nom : le nom de l'élément
-	 * @param unite : l'unité de l'élément ( pièces, kilo ...)
-	 * @param prixAchat : le prix d'achat d'un élément
-	 * @param prixVente : le prix de vente d'un élément
+	 * @param code : le code de l'ï¿½lï¿½ment
+	 * @param nom : le nom de l'ï¿½lï¿½ment
+	 * @param unite : l'unitï¿½ de l'ï¿½lï¿½ment ( piï¿½ces, kilo ...)
+	 * @param prixAchat : le prix d'achat d'un ï¿½lï¿½ment
+	 * @param prixVente : le prix de vente d'un ï¿½lï¿½ment
 	 */
-	public Element(String code,String nom, String unite, int prixAchat, int prixVente) {
+	public Element(String code,String nom, String unite, int prixAchat, int prixVente, String stockage, int demande) {
 		this.code=code;
 		this.nom=nom;
 		this.unite=unite;
 		this.prixAchat=prixAchat;
 		this.prixVente=prixVente;
+		this.stockage=stockage;
+		this.demande=demande;
 	}
 	
 	
