@@ -23,7 +23,7 @@ public class FichierCSVElements extends FichierCSV{
 		Scanner s;
 		try {
 			s = new Scanner(path);
-			this.tout=this.tout+"Code;Nom;Quantite;unite;achat;vente\n";
+			this.tout=this.tout+"Code;Nom;Quantite;unite;achat;vente;stockage;demande\n";
 			s.nextLine();
 			
 			String data = "";
@@ -31,6 +31,7 @@ public class FichierCSVElements extends FichierCSV{
 				data = s.nextLine();
 				this.tout=this.tout+data+"\n";
 				String[] values = data.split(";");
+				int demande = Integer.parseInt(values[7]);
 				if(!values[4].equals("NA")) {
 					 prixAchat=Integer.valueOf(values[4]); 
 				}
@@ -45,7 +46,7 @@ public class FichierCSVElements extends FichierCSV{
 					prixVente=0;
 				}
 
-				Element e = new Element(values[0],values[1],values[3],prixAchat,prixVente) ;
+				Element e = new Element(values[0],values[1],values[3],prixAchat,prixVente,values[6],demande) ;
 				
 				hmap.put(e, Double.valueOf(values[2]));
 			}
