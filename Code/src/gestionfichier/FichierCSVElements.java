@@ -32,6 +32,7 @@ public class FichierCSVElements extends FichierCSV{
 				this.tout=this.tout+data+"\n";
 				String[] values = data.split(";");
 				int demande = Integer.parseInt(values[7]);
+				
 				if(!values[4].equals("NA")) {
 					 prixAchat=Integer.valueOf(values[4]); 
 				}

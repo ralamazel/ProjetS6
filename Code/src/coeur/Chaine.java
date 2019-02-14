@@ -51,14 +51,19 @@ public  class Chaine {
 	public void fabriquer(int niveauDeFabrication, Stock s) {
 		Set<String> setOut = this.output.keySet();
 		Iterator<String> itOut = setOut.iterator();
+		boolean possible=true;
 		for (Entry<String, Double> entry : this.output.entrySet())
 			{
 				String test=(String) itOut.next();
-				s.AjoutStock(test, entry.getValue()*niveauDeFabrication);
+				
+				
+				possible=s.AjoutStock(test, entry.getValue()*niveauDeFabrication);
 			}
 		
 		Set<String> setIn = this.input.keySet();
 		Iterator<String> itIn = setIn.iterator();
+		if(possible==true) {
+			
 		
 		for (Entry<String, Double> entry : this.input.entrySet())
 		{
@@ -67,6 +72,7 @@ public  class Chaine {
 			double quantiteSortie=entry.getValue();
 			quantiteSortie = quantiteSortie*niveauDeFabrication;
 			s.EnleveStock(test, quantiteSortie);
+		}
 		}
 		
 	}

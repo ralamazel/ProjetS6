@@ -1,12 +1,12 @@
 package coeur;
 import java.util.HashMap;
-import java.lang.Object;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
 import gestionfichier.FichierCSVElements;
+import gestionfichier.FichierCSVStockage;
 import javafx.scene.shape.Path;
 import java.lang.*;
 import java.io.*;
@@ -21,19 +21,44 @@ public class Stock {
 	private FileWriter f;
 	private double efficacite;
 	private FichierCSVElements elements;
-	private String nomFichier;
+	private Stockage[] stockages;
+	private int indStockage;
 	/**
 	 * Le constructeur de la classe Stock
 	 * @throws IOException 
 	 */
-	public Stock(String cheminFichierElements) throws IOException {
+	public Stock(String cheminFichierElements, String cheminFichierStockage) throws IOException {
 		this.elements=new FichierCSVElements(cheminFichierElements);
 		this.hmap=elements.Charger();
+		
+		FichierCSVStockage fi=new FichierCSVStockage(cheminFichierStockage);
+		this.stockages=fi.Charger();
+		this.indStockage=fi.getInd();
+		
 		this.efficacite=this.getEfficacite();
-		this.nomFichier=cheminFichierElements;
+		
 		}
-	public String getNomFichier() {
-		return this.nomFichier;
+	
+	public void RemplirStockage() {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			double Qte = entry.getValue();
+			String stockage = test.getStockage();
+			for(int i=0;i<this.indStockage;i++) {
+				if(this.stockages[i].getCode().equals(stockage)) {
+					this.stockages[i].ajouter(Qte);
+				}
+			}
+		}
+	}
+	
+	public void afficherStockage() {
+		for(int i=0;i<this.indStockage;i++) {
+			System.out.println(this.stockages[i].toString());
+		}
 	}
 	      
 		
@@ -48,7 +73,7 @@ public class Stock {
 		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
-			System.out.println ("Nom : "+test.getNom()+" | Quantite : "+entry.getValue());
+			System.out.println (test.getNom()+"->"+entry.getValue()+"");
 		}
 
 	}
@@ -76,7 +101,7 @@ public class Stock {
 	 * @param code : code de l'element 
 	 * @param quantite : quantite de l'element a ajouter au stock
 	 */
-	public void AjoutStock(String code, Double quantite) {
+	public boolean AjoutStock(String code, Double quantite) {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
@@ -84,11 +109,21 @@ public class Stock {
 		{
 			Element test=(Element) it.next();
 			if (test.getCode().equals(code)) {
-				entry.setValue(entry.getValue() + quantite);
+				for(int i=0;i<this.indStockage;i++) {
+					if(this.stockages[i].getCode().equals(test.getStockage())) {
+						if(this.stockages[i].ajouter(quantite)) {
+							entry.setValue(entry.getValue() + quantite);
+							return true;
+						}
+						else {
+							System.out.println("Production impossible car l'element "+test.getNom()+" ne peut Ãªtre stocker en si grande quantitÃ©" );
+							return false;
+						}
+					}		
+				}	
 			}
-			
 		}
-
+		return false;
 	}
 	
 	/**
@@ -105,10 +140,29 @@ public class Stock {
 			Element test=(Element) it.next();
 			if (test.getCode().equals(code)) {
 				entry.setValue(entry.getValue() - quantite);
+				for(int i=0;i<this.indStockage;i++) {
+					if(this.stockages[i].getCode().equals(test.getStockage())) {
+						this.stockages[i].enlever(quantite);
+					}
 			}
 			
 		}
 
+	}
+	}
+	
+	public void afficherElement(String nom) {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			if (test.getNom().equals(nom)) {
+				System.out.println(test.toString()+" QuantitÃ© :" +entry.getValue());
+				
+			}
+		}
 	}
 
 
@@ -122,6 +176,9 @@ public class Stock {
 		Set<Element> set = hmap.keySet();
 		Iterator<Element> it = set.iterator();
 		
+		
+		
+		//On regarde si il existe un Ã©lÃ©ment mannquant qui n'aurait pas de prix d'achat
 		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
 		{
 			Element test=(Element) it.next();
@@ -173,6 +230,14 @@ public class Stock {
 	 */
 	public void ValiderLaProduction() throws IOException {
 		
+		if(this.Examiner()==false){
+			
+		}
+		
+		else {
+			
+		
+		
 		f = new FileWriter("Export_production");
 		f.append("STOCK AVANT PRODUCTION :\n");
 		//f.append(this.tout+"\n");
@@ -180,7 +245,7 @@ public class Stock {
 		f.append("-------------------------------------------------\n\n");
 		f.append("STOCK APRES PRODUCTION :\n");
 
-		File entree = new File("elements.csv");
+		File entree = new File("elementsV2.csv");
 		File sortie = new File("sortie.csv");
 		BufferedReader br = new BufferedReader(new FileReader(entree));
 		BufferedWriter bw = new BufferedWriter(new FileWriter(sortie));
@@ -222,7 +287,7 @@ public class Stock {
 		System.out.println("La production a ete valide !!");
 		f.append("\nEfficacite apres production : " +this.getEfficacite()+"\n");
 		f.close();
-		
+		}
 	}
 	
 	/**
@@ -252,17 +317,17 @@ public class Stock {
 				"E016;levure;89;unite;3;NA;cp;0\r\n" + 
 				"E017;confiture abricot;50;litre;2;NA;clr;0\r\n" + 
 				"E018;noix;50;kg;5;NA;p;0\r\n" + 
-				"E019;Chocolat 30†%;20;litre;10;8;cl;0\r\n" + 
-				"E020;Chocolat 40†%;12;litre;12;10;cl;0\r\n" + 
-				"E021;Chocolat 50†%;30;litre;NA;16;cl;0\r\n" + 
+				"E019;Chocolat 30ï¿½%;20;litre;10;8;cl;0\r\n" + 
+				"E020;Chocolat 40ï¿½%;12;litre;12;10;cl;0\r\n" + 
+				"E021;Chocolat 50ï¿½%;30;litre;NA;16;cl;0\r\n" + 
 				"E022;Pate biscuit Q1;0;litre;NA;NA;clr;0\r\n" + 
 				"E023;Pate biscuit Q2;0;litre;NA;NA;clr;0\r\n" + 
 				"E024;Pate biscuit Q3;0;litre;NA;NA;clr;0\r\n" + 
 				"E025;Gateau marque A;0;carton;NA;10;p;200\r\n" + 
 				"E026;Gateau marque B;0;carton;NA;8;p;300\r\n" + 
 				"E027;Gateau marque C;0;carton;NA;7;p;250\r\n" + 
-				"E028;Pate levÈe huile;0;kg;NA;NA;cb;0\r\n" + 
-				"E029;Pate levÈe beurre;0;kg;NA;NA;cb;0\r\n" + 
+				"E028;Pate levï¿½e huile;0;kg;NA;NA;cb;0\r\n" + 
+				"E029;Pate levï¿½e beurre;0;kg;NA;NA;cb;0\r\n" + 
 				"E030;Brioche;10;carton;NA;14;p;300\r\n" + 
 				"E031;Brioche beurre;0;carton;NA;16;p;100\r\n" + 
 				"E032;Pain chocolat A;0;carton;NA;14;p;50\r\n" + 

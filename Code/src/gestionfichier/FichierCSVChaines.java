@@ -54,9 +54,9 @@ public class FichierCSVChaines extends FichierCSV{
 			return ListeDesChaines;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Le fichier n'a pas été trouvé");
+			System.out.println("Le fichier n'a pas ï¿½tï¿½ trouvï¿½");
 		}
-		System.out.println("Problème liste de chaines vide");
+		System.out.println("Problï¿½me liste de chaines vide");
 		return null;
 	}
 	
@@ -66,8 +66,7 @@ public class FichierCSVChaines extends FichierCSV{
 
 	@Override
 	public void Ecriture() {
-		// TODO Auto-generated method stub
-		
+		//boutaleb
 	}
 
 }

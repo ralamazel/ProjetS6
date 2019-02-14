@@ -47,4 +47,11 @@ public  class Element {
 	 public String getUnite() {
 		 return this.unite;
 	 }
+	 public String getStockage() {
+		 return this.stockage;
+	 }
+	 
+	 public String toString() {
+		 return this.code +" "+this.nom+" "+this.prixAchat+" "+this.prixVente+" "+this.stockage;
+	 }
 }
