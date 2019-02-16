@@ -17,7 +17,7 @@ public class main {
 			
 			
 			//s.afficherElement("Pate Madeleines Q2");
-			c.getChaine("Chocolat 50 %").fabriquer(1000, s);
+			c.getChaine("Chocolat 50 %").fabriquer(48, s);
 			s.afficherStockage();
 			/*s.afficherStock();
 			if (s.Examiner()) {

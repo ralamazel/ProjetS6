@@ -49,10 +49,11 @@ public class Stock {
 			String stockage = test.getStockage();
 			for(int i=0;i<this.indStockage;i++) {
 				if(this.stockages[i].getCode().equals(stockage)) {
-					this.stockages[i].ajouter(Qte);
+					this.stockages[i].ajouter(test,Qte);
 				}
 			}
 		}
+		System.out.println("Le stock a bien été remplie !");
 	}
 	
 	public void afficherStockage() {
@@ -111,12 +112,12 @@ public class Stock {
 			if (test.getCode().equals(code)) {
 				for(int i=0;i<this.indStockage;i++) {
 					if(this.stockages[i].getCode().equals(test.getStockage())) {
-						if(this.stockages[i].ajouter(quantite)) {
+						if(this.stockages[i].ajouter(test,quantite)==0 ) {
 							entry.setValue(entry.getValue() + quantite);
 							return true;
 						}
 						else {
-							System.out.println("Production impossible car l'element "+test.getNom()+" ne peut être stocker en si grande quantité" );
+							System.out.println("Production impossible car on veut ajouter "+quantite+" elements "+test.getNom()+" alors que la quantité disponible en stock est de "+this.stockages[i].getQuantiteDispo() );
 							return false;
 						}
 					}		
@@ -142,7 +143,7 @@ public class Stock {
 				entry.setValue(entry.getValue() - quantite);
 				for(int i=0;i<this.indStockage;i++) {
 					if(this.stockages[i].getCode().equals(test.getStockage())) {
-						this.stockages[i].enlever(quantite);
+						this.stockages[i].enlever(test,quantite);
 					}
 			}
 			

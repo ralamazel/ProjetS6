@@ -11,5 +11,7 @@
 			<accessrule kind="accessible" pattern="javafx/**"/>
 		</accessrules>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/igouane/Downloads/commons-logging-1.2-bin.tar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/appache-commons-lang"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
