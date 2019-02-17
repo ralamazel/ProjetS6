@@ -296,15 +296,15 @@ public class Stock {
 					}
 				}
 			values[2]=Double.toString(q);
-			bw.write(values[0]+";"+values[1]+";"+values[2]+";"+values[3]+";"+values[4]+";"+values[5]+"\n");
-			f.append(values[0]+";"+values[1]+";"+values[2]+";"+values[3]+";"+values[4]+";"+values[5]+"\n");
+			bw.write(values[0]+";"+values[1]+";"+values[2]+";"+values[3]+";"+values[4]+";"+values[5]+";"+values[6]+";"+values[7]+"\n");
+			f.append(values[0]+";"+values[1]+";"+values[2]+";"+values[3]+";"+values[4]+";"+values[5]+";"+values[6]+";"+values[7]+"\n");
 			bw.flush();
 		}
 		s.close();
 		br.close();
 		bw.close();
 		
-		sortie.renameTo(new File("elements.csv"));
+		sortie.renameTo(new File("elementsV2.csv"));
 		System.out.println("La production a ete valide !!");
 		f.append("\nEfficacite apres production : " +this.getEfficacite()+"\n");
 		f.close();

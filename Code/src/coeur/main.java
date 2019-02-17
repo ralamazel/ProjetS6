@@ -23,7 +23,6 @@ public class main {
 			if (s.Examiner()) {
 				System.out.println("Efficacite : "+s.getEfficacite()+" euros \n");
 				s.ValiderLaProduction();
-				
 			}
 			//s.ValiderLaProduction();
 			//s.reset();

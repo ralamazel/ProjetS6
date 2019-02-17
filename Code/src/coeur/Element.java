@@ -9,6 +9,9 @@ public  class Element {
 	private int prixVente;
 	private String stockage;
 	private int demande;
+	private String prixAchatSTR;
+	private String prixVenteSTR;
+	private String demandeSTR;
 	
 	/**
 	 * @param code : le code de l'�l�ment
@@ -26,6 +29,16 @@ public  class Element {
 		this.stockage=stockage;
 		this.demande=demande;
 	}
+	
+	public Element(String code, String nom, String unite, String prixAchatSTR, String prixVenteSTR, String stockage, String demandeSTR) {
+        this.code=code;
+        this.nom=nom;
+        this.unite=unite;
+        this.prixAchatSTR=prixAchatSTR;
+        this.prixVenteSTR=prixVenteSTR;
+        this.stockage=stockage;
+        this.demandeSTR=demandeSTR;
+    }
 	
 	
 	public String getCode() {
