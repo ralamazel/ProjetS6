@@ -117,7 +117,9 @@ public class Stock {
 							return true;
 						}
 						else {
-							System.out.println("Production impossible car on veut ajouter "+quantite+" elements "+test.getNom()+" alors que la quantité disponible en stock est de "+this.stockages[i].getQuantiteDispo() );
+							this.resetStockage();
+							System.out.println("Production impossible car on veut ajouter "+quantite+" "+test.getNom()+" alors que la quantité max a ajouter en stock est de "+this.stockages[i].getQteDispoAjout(test) );
+							
 							return false;
 						}
 					}		
@@ -127,6 +129,24 @@ public class Stock {
 		return false;
 	}
 	
+	public void resetStockage() {
+		FichierCSVStockage fi =new FichierCSVStockage("stockage.csv");
+		this.stockages=fi.Charger();
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			double Qte = entry.getValue();
+			String stockage = test.getStockage();
+			for(int i=0;i<this.indStockage;i++) {
+				if(this.stockages[i].getCode().equals(stockage)) {
+					this.stockages[i].ajouter(test,Qte);
+				}
+			}
+		}
+		System.out.println("Le stockage a bien été rénitialisé");
+	}
 	/**
 	 * methode permettant de retirer du stock une quantite de l'element a partir de son code
 	 * @param code : code de l'element a retirer du stock
@@ -288,6 +308,29 @@ public class Stock {
 		System.out.println("La production a ete valide !!");
 		f.append("\nEfficacite apres production : " +this.getEfficacite()+"\n");
 		f.close();
+		this.calculerDemande();
+		}
+	}
+	
+	public void calculerDemande() {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			if(test.getDemande()>0) {
+				double QteReel=entry.getValue();
+				double demande = test.getDemande();
+				double pourcentage;
+				if(QteReel>=demande) {
+					pourcentage=100;
+				}
+				else {
+					pourcentage =QteReel*100/demande;
+				}
+				System.out.println(test.getNom()+ " : Demande satisfaite à "+pourcentage+"%");
+			}
+	
 		}
 	}
 	

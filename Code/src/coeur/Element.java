@@ -44,6 +44,10 @@ public  class Element {
 		 return this.prixVente;
 	 }
 	 
+	 public int getDemande() {
+		 return this.demande;
+	 }
+	 
 	 public String getUnite() {
 		 return this.unite;
 	 }
