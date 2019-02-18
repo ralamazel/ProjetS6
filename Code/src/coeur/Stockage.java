@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 
-import com.google.common.collect.HashMultimap;
 public class Stockage {
 	private String code;
 	private String nom;
@@ -145,7 +144,7 @@ public class Stockage {
 			if(test.getCode().equals(e.getCode())) {
 				for(int i=0;i<entry.getValue().size();i++) {
 					QteDispoAjout=QteDispoAjout+(this.capacite-entry.getValue().get(i));
-					System.out.println(test.getCode());
+					
 				}
 			}
 			}

@@ -67,5 +67,9 @@ public class FichierCSVElements extends FichierCSV{
 		//boutaleb
 	}
 	
+	public String getTout() {
+		return this.tout;
+	}
+	
 
 }

@@ -15,16 +15,12 @@ public class main {
 			s.afficherStock();
 			s.RemplirStockage();
 			
-			
-			//s.afficherElement("Pate Madeleines Q2");
-			c.getChaine("Chocolat 50 %").fabriquer(3, s);
-			s.afficherStockage();
+			c.getChaine("Chocolat 50 %").fabriquer(2, s);
+			//s.afficherStockage();
 			s.afficherStock();
-			if (s.Examiner()) {
-				System.out.println("Efficacite : "+s.getEfficacite()+" euros \n");
-				s.ValiderLaProduction();
-			}
-			//s.ValiderLaProduction();
+			s.ValiderLaProduction();
+			
+
 			//s.reset();
 		}
 }

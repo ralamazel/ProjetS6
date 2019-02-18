@@ -11,7 +11,5 @@
 			<accessrule kind="accessible" pattern="javafx/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/appache-commons-lang"/>
-	<classpathentry kind="lib" path="/Users/igouane/Downloads/guava-r05.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
