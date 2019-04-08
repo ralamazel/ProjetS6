@@ -14,6 +14,7 @@ public class Usine{
 	public Usine(String cheminStock,String cheminChaines) throws IOException {
 		this.s=new Stock(cheminStock,"stockage.csv");
 		this.c=new ChainesProduction(cheminChaines);
+
 		
 	}
 
@@ -25,6 +26,7 @@ public class Usine{
 	public ChainesProduction getC() {
 		return c;
 	}
+	
 	
 
 }

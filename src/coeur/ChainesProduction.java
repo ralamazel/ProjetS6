@@ -11,6 +11,7 @@ public class ChainesProduction {
 		private  Chaine[] ListeDesChaines;
 		private FichierCSVChaines c;
 		private int ind;
+		private int temps;
 		/** 
 		 * Le constructeur de la classe chainesProduction.
 		 * @throws FileNotFoundException : le stock va chercher dans elements.csv
@@ -19,6 +20,7 @@ public class ChainesProduction {
 			this.c=new FichierCSVChaines(CheminFichierChaines);
 			this.ListeDesChaines=c.Charger();
 			this.ind=c.getInd();
+			this.temps=0;
 			
 	}
 		
@@ -36,6 +38,10 @@ public class ChainesProduction {
 			}
 			System.out.println("La chaine n'a pas ete trouve.");
 			return null;
+		}
+		
+		public Chaine[] getListeDesChaines() {
+			return this.ListeDesChaines;
 		}
 		
 		

@@ -1,5 +1,10 @@
-Code;Nom;Quantite;unite;achat;vente
-E001;Sucre;300.0;kg;1;NA;cp;0
-E011;beurre cacao;200.0;kg;3;NA;p;0
-E012;pate cacao;100.0;kg;12;NA;cp;0
-E021;Chocolat 50?%;60.0;litre;NA;16;cl;400
+Code;Nom;Quantite;unite;achat;vente;stockage;Demande
+E001;Sucre;500;kg;1;NA;cp;0
+E002;farine;1500;kg;1;NA;cp;0
+E009;huile colza;1500;litre;2;NA;p;0
+E011;beurre cacao;800;kg;3;NA;p;0
+E012;pate cacao;150;kg;12;NA;cp;0
+E016;levure;89;unite;3;NA;cp;0
+E021;Chocolat 50?%;30;litre;NA;16;cl;0
+E028;Pate lev?e huile;0;kg;NA;NA;cb;0
+E030;Brioche;0;carton;NA;14;p;300

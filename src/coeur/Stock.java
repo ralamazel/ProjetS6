@@ -19,7 +19,8 @@ import static java.nio.file.StandardCopyOption.*;
 public class Stock {
 	private HashMap<Element, Double> hmap;
 	private FileWriter f;
-	private double efficacite;
+	private double efficaciteAvant;
+	private double efficaciteApres;
 	private FichierCSVElements elements;
 	private Stockage[] stockages;
 	private int indStockage;
@@ -27,6 +28,8 @@ public class Stock {
 	private HashMap<Element, Double> listeAchat= new HashMap<Element, Double>();
 	private boolean validite=true;
 	private boolean listeAchats=false;
+	private int tempsProduction=0;
+	private String erreur;
 	/**
 	 * Le constructeur de la classe Stock
 	 * @throws IOException 
@@ -39,10 +42,31 @@ public class Stock {
 		this.stockages=fi.Charger();
 		this.indStockage=fi.getInd();
 		
-		this.efficacite=this.getEfficacite();
+		this.efficaciteApres=this.getEfficacite();
 		this.tout=this.elements.getTout();
 		
 		}
+	
+	public int getTemps() {
+		return this.tempsProduction;
+	}
+	
+	public void ajoutTemps(int t) {
+		this.tempsProduction=this.tempsProduction+t;
+	}
+	
+	public String getNom(String code) {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			if(test.getCode().equals(code)) {
+				return test.getNom();
+			}
+		}
+		return null;
+	}
 	
 	public void RemplirStockage() {
 		Set<Element> set = hmap.keySet();
@@ -101,7 +125,33 @@ public class Stock {
 		}
 		return 1.0;
 	}
-	
+	public boolean Ajoutable(String code, Double quantite) {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			if (test.getCode().equals(code)) {
+				for(int i=0;i<this.indStockage;i++) {
+					if(this.stockages[i].getCode().equals(test.getStockage())) {
+						if(this.stockages[i].ajoutable(test,quantite)==true ) {
+							return true;
+						}
+						else {
+							//this.resetStockage();
+							//System.out.println("Production impossible car on veut ajouter "+quantite+" "+test.getNom()+" alors que la quantité max a ajouter en stock est de "+this.stockages[i].getQteDispoAjout(test) );
+							//this.erreur=this.erreur+"Production impossible car on veut ajouter "+quantite+" "+test.getNom()+" alors que la quantité max a ajouter en stock est de "+this.stockages[i].getQteDispoAjout(test);
+							
+							//this.validite=false;
+							return false;
+						}
+					}		
+				}	
+			}
+		}
+		return false;
+	}
 	/**
 	 * Methode permettant d'ajouter une quantite d'element au stock a partir de son code
 	 * @param code : code de l'element 
@@ -122,8 +172,10 @@ public class Stock {
 							return true;
 						}
 						else {
-							System.out.println("Production impossible car on veut ajouter "+quantite+" "+test.getNom()+" alors que la quantité max a ajouter en stock est de "+this.stockages[i].getQteDispoAjout(test) );
 							this.resetStockage();
+							System.out.println("Production impossible car on veut ajouter "+quantite+" "+test.getNom()+" alors que la quantité max a ajouter en stock est de "+this.stockages[i].getQteDispoAjout(test) );
+							this.erreur=this.erreur+"Production impossible car on veut ajouter "+quantite+" "+test.getNom()+" alors que la quantité max a ajouter en stock est de "+this.stockages[i].getQteDispoAjout(test);
+							
 							this.validite=false;
 							return false;
 						}
@@ -165,6 +217,7 @@ public class Stock {
 		{
 			Element test=(Element) it.next();
 			if (test.getCode().equals(code)) {
+				//si la production est possible
 				if(entry.getValue()-quantite>=0) {
 					entry.setValue(entry.getValue() - quantite);
 					for(int i=0;i<this.indStockage;i++) {
@@ -174,23 +227,48 @@ public class Stock {
 						}
 					}
 				}
+				//si la production est impossible
 				else {
 					double a=((entry.getValue()-quantite)*-1);
-					System.out.println("Il manque "+a+" elements "+test.getNom());
-					this.listeAchat.put(test, a);
-					entry.setValue((double) 0);
-					for(int i=0;i<this.indStockage;i++) {
-					if(this.stockages[i].getCode().equals(test.getStockage())) {
-						this.stockages[i].enlever(test,entry.getValue());
-						
-					}
-					}
-					return 1;
+					System.out.println("Production impossible : il manque "+a+" elements "+test.getNom());
+					return 0;
 				}
 		}
 
 	}
 		return -1;
+	}
+	
+	
+	public boolean Enlevable(String code, double quantite) {
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			if (test.getCode().equals(code)) {
+				//si la production est possible
+				if(entry.getValue()-quantite>=0) {
+					//entry.setValue(entry.getValue() - quantite);
+					for(int i=0;i<this.indStockage;i++) {
+						if(this.stockages[i].getCode().equals(test.getStockage())) {
+							if(this.stockages[i].enlevable(test,quantite)) {
+								return true;
+							}
+						}
+					}
+				}
+				//si la production est impossible
+				else {
+					double a=((entry.getValue()-quantite)*-1);
+					System.out.println("Production impossible : il manque "+a+" elements "+test.getNom());
+					return false;
+				}
+		}
+
+	}
+		return false;
 	}
 	
 	public void afficherElement(String nom) {
@@ -226,6 +304,7 @@ public class Stock {
 			Element test=(Element) it.next();
 				if(test.getPrixAchat()==0) {
 					System.out.println("Production impossible car l'element "+test.getNom()+ " ne possede pas de prix d'achat");
+					this.erreur=this.erreur+"Production impossible car l'element "+test.getNom()+ " ne possede pas de prix d'achat\n";
 					return false;
 				}
 				else {
@@ -270,6 +349,7 @@ public class Stock {
 	public int ValiderLaProduction() throws IOException {
 		
 		if(this.Examiner()==false) {
+			this.tempsProduction=0;
 			return -1;
 		}
 		
@@ -278,7 +358,7 @@ public class Stock {
 		f = new FileWriter("Export_production");
 		f.append("STOCK AVANT PRODUCTION :\n");
 		f.append(this.tout+"\n");
-		f.append("Efficacite avant production : "+this.efficacite+"\n\n");
+		f.append("Efficacite avant production : "+this.efficaciteAvant+"\n\n");
 		f.append("-------------------------------------------------\n\n");
 		f.append("STOCK APRES PRODUCTION :\n");
 
@@ -320,11 +400,37 @@ public class Stock {
 		if(this.listeAchats==true) {
 			File listAchat = new File("Liste d'achats");
 			f.append("\nEfficacite apres production : " +this.getEfficacite()+"\n");
+			this.efficaciteApres=this.getEfficacite();
+			f.append("La production s'effectue en "+this.tempsProduction+" heures\n\n");
 			f.append("\nLISTE D'ACHATS :"+"\n");
 			Scanner s1 = new Scanner(listAchat);
 			while(s1.hasNext()) {
 				f.append(s1.nextLine()+"\n");
 			}
+			
+			Set<Element> set = hmap.keySet();
+			Iterator<Element> it = set.iterator();
+			for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+			{
+				Element test=(Element) it.next();
+				if(test.getDemande()>0) {
+					double QteReel=entry.getValue();
+					double demande = test.getDemande();
+					double pourcentage;
+					if(QteReel>=demande) {
+						pourcentage=100;
+					}
+					else {
+						pourcentage =QteReel*100/demande;
+					}
+					System.out.println(test.getNom()+ " : Demande satisfaite à "+pourcentage+"%");
+					f.append(test.getNom()+ " : Demande satisfaite à "+pourcentage+"%");
+				}
+		
+			}
+
+			
+			
 			s.close();
 			br.close();
 			bw.close();
@@ -334,9 +440,31 @@ public class Stock {
 			f.close();
 			s1.close();
 			this.calculerDemande();
+			this.tempsProduction=0;
 			return 0;
 			
 		}
+		Set<Element> set = hmap.keySet();
+		Iterator<Element> it = set.iterator();
+		for (HashMap.Entry<Element, Double> entry : hmap.entrySet())
+		{
+			Element test=(Element) it.next();
+			if(test.getDemande()>0) {
+				double QteReel=entry.getValue();
+				double demande = test.getDemande();
+				double pourcentage;
+				if(QteReel>=demande) {
+					pourcentage=100;
+				}
+				else {
+					pourcentage =QteReel*100/demande;
+				}
+				f.append(test.getNom()+ " : Demande satisfaite à "+pourcentage+"%");
+			}
+	
+		}
+		
+		
 		s.close();
 		br.close();
 		bw.close();
@@ -345,9 +473,11 @@ public class Stock {
 		
 		sortie.renameTo(entree);
 		System.out.println("La production a ete valide !!");
-		f.append("\nEfficacite apres production : " +this.getEfficacite()+"\n");
+		f.append("\nEfficacite apres production : " +this.getEfficacite()+"\n\n");
+		f.append("La production s'effectue en "+this.tempsProduction+" heures\n\n");
 		f.close();
 		this.calculerDemande();
+		this.tempsProduction=0;
 		return 1;
 		}
 	}
@@ -438,6 +568,18 @@ public class Stock {
 		bw.close();
 		sortie.renameTo(new File("elementsV2.csv"));
 		System.out.println("Le stock a ete reinitialise !");
+	}
+	
+	public String getErreur() {
+		return this.erreur;
+	}
+	
+	public double getEfficaciteAvant() {
+		return this.efficaciteAvant;
+	}
+	
+	public double getEfficaciteApres() {
+		return this.efficaciteApres;
 	}
 	
 	

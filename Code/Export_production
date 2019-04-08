@@ -1,24 +1,26 @@
 STOCK AVANT PRODUCTION :
 Code;Nom;Quantite;unite;achat;vente;stockage;demande
-E001;Sucre;0.0;kg;1;NA;cp;0
-E011;beurre cacao;0.0;kg;3;NA;p;0
+E001;Sucre;234.0;kg;1;NA;cp;0
+E011;beurre cacao;35.0;kg;3;NA;p;0
 E012;pate cacao;0.0;kg;12;NA;cp;0
-E021;Chocolat 50?%;3140.0;litre;NA;16;cl;400
+E021;Chocolat 50?%;210.0;litre;NA;16;cl;400
 
-Efficacite avant production : 50240.0
+Efficacite avant production : 3360.0
 
 -------------------------------------------------
 
 STOCK APRES PRODUCTION :
 Code;Nom;Quantite;unite;achat;vente
-E001;Sucre;0.0;kg;1;NA;cp;0
+E001;Sucre;214.0;kg;1;NA;cp;0
 E011;beurre cacao;0.0;kg;3;NA;p;0
 E012;pate cacao;0.0;kg;12;NA;cp;0
-E021;Chocolat 50?%;3160.0;litre;NA;16;cl;400
+E021;Chocolat 50?%;310.0;litre;NA;16;cl;400
 
-Efficacite apres production : 50560.0
+Efficacite apres production : 4960.0
+La production s'effectue en 10 heures
+
 
 LISTE D'ACHATS :
-beurre cacao : 10.0 unites a acheter.
-Sucre : 4.0 unites a acheter.
-pate cacao : 10.0 unites a acheter.
+beurre cacao : 15.0 unites a acheter.
+pate cacao : 50.0 unites a acheter.
+Chocolat 50?% : Demande satisfaite à 77.5%

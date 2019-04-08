@@ -24,6 +24,10 @@ public  class Chaine {
 	private HashMap<String,Double> input;
 	private String nomElementACreer;
 	private HashMap <String,Double> output;
+	private int temps;
+	private int niveauDeFabrication;
+	public int tempsRestant = -1;
+	
 	
 	
 	/**
@@ -35,11 +39,13 @@ public  class Chaine {
 	 * @param quantiteSortie : la quantite de l'element en sortie de production
 	 * @throws FileNotFoundException
 	 */
-	public Chaine(String code,String nom,HashMap<String,Double> input, HashMap <String,Double> output ) throws FileNotFoundException  {
+	public Chaine(String code,String nom,HashMap<String,Double> input, HashMap <String,Double> output, int temps ) throws FileNotFoundException  {
 		this.code=code;
 		this.nomElementACreer=nom;
 		this.input=input;
 		this.output=output;
+		this.temps=temps;
+		this.niveauDeFabrication=0;
 	}
 
 
@@ -60,16 +66,13 @@ public  class Chaine {
 			String test=(String) itIn.next();
 			double quantiteSortie=entry.getValue();
 			quantiteSortie = quantiteSortie*niveauDeFabrication;
+			// si possible de fabriquer
 			if(s.EnleveStock(test, quantiteSortie)==1) {
 				compteur++;
 			}
-			else {
-				s.AjoutStock(test, quantiteSortie*-1);
-			}
-			
-			
 		}
 		
+		// si tout s'est bien passé
 		if(compteur==this.input.size()) {
 	
 		for (Entry<String, Double> entry : this.output.entrySet())
@@ -78,6 +81,9 @@ public  class Chaine {
 				possible=s.AjoutStock(test, entry.getValue()*niveauDeFabrication);
 				if(possible==false) {
 					return -1;
+				}
+				else {
+					return 1;
 				}
 			}
 		
@@ -95,16 +101,93 @@ public  class Chaine {
 				}
 			}
 		}
-		return 1;
+		this.niveauDeFabrication=niveauDeFabrication;
+		return -1;
+		}
+	
+	
+	public boolean fabricable(int niveauDeFabrication, Stock s) {
+		Set<String> setOut = this.output.keySet();
+		Iterator<String> itOut = setOut.iterator();
+		Set<String> setIn = this.input.keySet();
+		Iterator<String> itIn = setIn.iterator();
+		boolean possible=true;
+		int compteur=0;
+		for (Entry<String, Double> entry : this.input.entrySet())
+		{
+			String test=(String) itIn.next();
+			double quantiteSortie=entry.getValue();
+			quantiteSortie = quantiteSortie*niveauDeFabrication;
+			// si possible de fabriquer
+			if(s.Enlevable(test, quantiteSortie)) {
+				compteur++;
+			}
 		}
 		
+		// si tout s'est bien passé
+		if(compteur==this.input.size()) {
 	
+		for (Entry<String, Double> entry : this.output.entrySet())
+			{
+				String test=(String) itOut.next();
+				possible=s.Ajoutable(test, entry.getValue()*niveauDeFabrication);
+				if(possible==false) {
+					return false;
+				}
+				else {
+					return true;
+				}
+			}
+		
+		}
+		//ça c'est mal passé
+		else {
+			return false;
+		}
+		return false;
+		
+	}
+		
 	
+	public int getNiveauDeFabrication() {
+		return this.niveauDeFabrication;
+	}
+	public void setNiveauDeFabrication(int n) {
+		this.niveauDeFabrication=n;
+	}
+	public int getTemps() {
+		return this.temps;
+	}
 
-
-	
 	public String getnomElementACreer() {
 		return this.nomElementACreer;
 	}
+	
+	public double getQteElementACreer() {
+		for (HashMap.Entry<String, Double> entry : output.entrySet())
+		{
+			return entry.getValue();
+		}
+		return 0.0;
+	}
+	
+	public int getTempsRestant() {
+		return this.tempsRestant;
+	}
+	
+	public boolean ProductionPossible() {
+		if(this.tempsRestant==0) {
+			this.tempsRestant=this.temps;
+			return true;
+		}
+		this.tempsRestant--;
+		
+		return false;
+	}
+	
+	public HashMap<String,Double> getInput(){
+		return this.input;
+	}
+	
 
 }

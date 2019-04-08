@@ -1,31 +1,4 @@
 Code;Nom;Entree (code,qte);Sortie (code,qte);Temps;Personnels non qualifies;Personnels qualifies
-C001;Chocolat 30 %;E012x3,E014x5,E011x2,E001x3;E019x10;1;2;0
-C002;Chocolat 40 %;E012x4,E014x4,E011x2,E001x2;E020x10;1;2;0
 C003;Chocolat 50 %;E012x5,E011x5,E001x2;E021x10;1;1;1
-C004;Pate biscuit Q1;E002x5,E001x3,E008x2,E051x1;E022x10;3;2;1
-C005;Pate biscuit Q2;E002x5,E001x3,E009x2,E015x1,E051x1;E023x10;2;1;1
-C006;Pate biscuit Q3;E002x5,E001x3,E006x2,E051x1;E024x10;2;1;1
-C007;Gateau marque A;E024x5,E021x1;E025x5;2;1;2
-C008;Gateau marque B;E023x5,E020x1;E026x5;2;1;2
-C009;Gateau marque C;E022x5,E019x1;E027x5;2;1;1
 C010;Pate levee huile;E002x20,E009x5,E001x5,E016x2;E028x25;3;2;2
-C011;Pate levee beurre;E002x20,E006x5,E001x5,E016x2;E029x25;3;2;2
 C012;Brioche;E028x10;E030x10;2;1;1
-C013;Brioche beurre;E029x10;E031x10;2;0;2
-C014;Pain chocolat A;E028x9,E020x3;E032x10;2;1;1
-C015;Pain chocolat B;E028x9,E019x3;E033x10;2;1;1
-C016;Biscuit marque A;E022x7;E034x7;1;3;0
-C017;Biscuit marque B et C;E023x8;E035x8;1;2;0
-C018;Pate crepes;E002x10,E001x2,E014x5,E009x2,E015x1;E036x12;2;0;1
-C019;Crepes natures;E036x10;E037x5;4;2;1
-C020;Crepes fourrees choc;E036x10,E019x3;E038x5;5;2;2
-C021;Crepes fourres abricot;E036x10,E017x3;E039x5;5;1;2
-C022;Brownies marque A;E023x5,E005x2,E021x2,E018x1;E040x6;2;1;1
-C023;Brownies marque B;E024x5,E005x2,E020x2,E018x1;E040x6;2;2;0
-C024;Cookies Choc;E024x4,E020x1;E044x3,E045x2;1;2;1
-C025;Cookies Choc/Noix;E024x4,E020x1,E018x1;E046x3,E047x2;1;2;1
-C026;Pate Madeleines Q1;E002x5,E001x3,E006x1,E051x1,E004x1,E005x1;E046x11;1;3;2
-C027;Pate Madeleines Q2;E002x5,E001x3,E008x1,E051x1,E004x1,E005x1;E047x11;1;4;1
-C028;Madeleines marque A;E046x5;E048x5;2;1;1
-C029;Madeleines marque B;E047x5;E049x5;2;1;1
-C030;Madeleines Choc;E047x5,E019x1;E050x5;2;2;1

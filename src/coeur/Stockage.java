@@ -24,13 +24,83 @@ public class Stockage {
 		this.code=code;
 		this.nom=nom;
 		this.QteDispo=QteDispo;
-
+		
 		
 	}
 	
 	public void setCapacite(double c) {
 		this.capacite=c;
 	}
+	
+	public boolean ajoutable(Element e,double Q) {
+		Set<Element> set = cuves.keySet();
+		boolean existe=false;
+		Iterator<Element> it = set.iterator();
+	
+		for (HashMap.Entry<Element, ArrayList<Double>> entry : cuves.entrySet())
+			{
+			Element test=(Element) it.next();
+			if(test.getCode().equals(e.getCode())) {
+				existe=true;
+				for(int i=0;i<entry.getValue().size();i++) {
+					if( entry.getValue().get(i)+Q<=this.capacite) {
+						//entry.getValue().set(i, entry.getValue().get(i)+Q);
+						Q=0;
+						
+					}
+					else {
+						Q=Q-(this.capacite-entry.getValue().get(i));
+						//entry.getValue().set(i, this.capacite);				
+					}
+				}
+				if(Q==0) {
+					return true;
+				}
+			}
+			}
+		
+		if(!existe) {
+			ArrayList<Double> arr=new ArrayList<Double>();
+			//this.cuves.put(e, arr);
+			while (Q-this.capacite>0 && this.QteDispo>0) {
+				//this.cuves.get(e).add(this.capacite);
+				//Q=Q-this.capacite;
+				//this.QteDispo--;
+				
+		}
+			if(Q>0) {
+				if (this.QteDispo==0) { return false;}
+				//this.cuves.get(e).add(Q);
+				//this.QteDispo--;
+				
+				Q=0;
+				return true;
+			}
+		}
+		
+		if (existe) {
+			
+			while (Q-this.capacite>0 && this.QteDispo>0) {
+				//this.cuves.get(e).add(this.capacite);
+				Q=Q-this.capacite;
+				System.out.println("Quantite dispooo :"+this.QteDispo);
+				//this.QteDispo--;
+				
+			}
+			if(Q>0) {
+				
+				if (this.QteDispo==0) { return false;}
+				//this.cuves.get(e).add(Q);
+				//this.QteDispo--;
+				Q=0;
+				
+				return true;
+				
+			}
+		}	
+		return false;	
+	}
+	
 	
 	public int ajouter(Element e,double Q) {
 		
@@ -82,18 +152,23 @@ public class Stockage {
 		}
 		
 		if (existe) {
+			
 			while (Q-this.capacite>0 && this.QteDispo>0) {
 				this.cuves.get(e).add(this.capacite);
 				Q=Q-this.capacite;
+				System.out.println("Quantite dispooo :"+this.QteDispo);
 				this.QteDispo--;
 				
 			}
 			if(Q>0) {
+				
 				if (this.QteDispo==0) { return -1;}
 				this.cuves.get(e).add(Q);
 				this.QteDispo--;
 				Q=0;
+				
 				return 0;
+				
 			}
 		}	
 		return -1;	
@@ -129,7 +204,39 @@ public class Stockage {
 			}
 		}
 			}
+	}
+	
+	public boolean enlevable(Element e,double Q) {
+		Set<Element> set = cuves.keySet();
+		Iterator<Element> it = set.iterator();
+
+		for (HashMap.Entry<Element, ArrayList<Double>> entry : cuves.entrySet())
+			{
 		
+			Element test=(Element) it.next();
+			if(test.getCode().equals(e.getCode())) {
+				for(int i=0;i<entry.getValue().size();i++) {
+			
+				if(entry.getValue().get(i)-Q>=0) {
+					//entry.getValue().set(i, entry.getValue().get(i)-Q);
+					Q=0;
+					if( entry.getValue().get(i)==0) {
+						//cuves.get(e).remove(i);
+						//this.QteDispo++;
+					}
+					return true;
+				}
+				else {
+					Q=Q- entry.getValue().get(i);
+					//entry.getValue().set(i, (double)0);
+					//cuves.get(e).remove(i);
+					//this.QteDispo++;
+					return false;
+				}
+			}
+		}
+			}
+		return false;
 	}
 	
 	public double getQteDispoAjout(Element e) {

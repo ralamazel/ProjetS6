@@ -45,7 +45,7 @@ public class FichierCSVChaines extends FichierCSV{
 					output.put(ok[0], Double.valueOf(ok[1]));
 				}
 				
-				Chaine c=new Chaine(code,values[1],input,output);
+				Chaine c=new Chaine(code,values[1],input,output,Integer.parseInt(values[4]));
 				ListeDesChaines[this.ind]=c;
 				this.ind=this.ind+1;
 				
